@@ -1,0 +1,18 @@
+
+{
+  "name": "numbers-example",
+  "description": "Numbers Example",
+  "main": "index.js",
+  "devDependencies": {
+    "browserify": "^6.3.3",
+    "envify": "^3.2.0",
+    "reactify": "^0.17.1"
+  },
+  "dependencies": {
+    "cldr-data": "~26.0.9"
+  },
+  "scripts": {
+    "build": "browserify --debug --transform reactify index.js > bundle.js"
+  },
+  "cldr-data-coverage": "full"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "react-globalize",
+  "version": "0.0.0",
+  "description": "Bringing the i18n functionality of Globalize, backed by CLDR, to React",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "globalize",
+    "i18n",
+    "cldr"
+  ],
+  "author": "Kris Borchers",
+  "license": "MIT",
+  "devDependencies": {
+    "globalize": "~1.0.0-alpha.17",
+    "react": "~0.12.2"
+  },
+  "peerDependencies": {
+    "globalize": "~1.0.0-alpha.17",
+    "react": "~0.12.2"
+  }
+}
