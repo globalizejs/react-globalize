@@ -8,8 +8,8 @@ var FormatCurrency = ReactGlobalize.FormatCurrency;
 Globalize.load(
     require( 'cldr-data/json/main/en/numbers' ),
     require( 'cldr-data/json/main/en/currencies' ),
-    require( 'cldr-data/json/main/pt-BR/numbers' ),
-    require( 'cldr-data/json/main/pt-BR/currencies' ),
+    require( 'cldr-data/json/main/pt/numbers' ),
+    require( 'cldr-data/json/main/pt/currencies' ),
     require( 'cldr-data/json/supplemental/currencyData' ),
     require( 'cldr-data/json/supplemental/plurals' ),
     require( 'cldr-data/json/supplemental/likelySubtags' )

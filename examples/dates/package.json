@@ -13,6 +13,5 @@
   },
   "scripts": {
     "build": "browserify --debug --transform reactify index.js > bundle.js"
-  },
-  "cldr-data-coverage": "full"
+  }
 }

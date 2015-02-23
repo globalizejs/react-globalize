@@ -9,9 +9,9 @@ Globalize.load(
     require( 'cldr-data/json/main/en/ca-gregorian' ),
     require( 'cldr-data/json/main/en/timeZoneNames' ),
     require( 'cldr-data/json/main/en/numbers' ),
-    require( 'cldr-data/json/main/pt-BR/ca-gregorian' ),
-    require( 'cldr-data/json/main/pt-BR/timeZoneNames' ),
-    require( 'cldr-data/json/main/pt-BR/numbers' ),
+    require( 'cldr-data/json/main/pt/ca-gregorian' ),
+    require( 'cldr-data/json/main/pt/timeZoneNames' ),
+    require( 'cldr-data/json/main/pt/numbers' ),
     require( 'cldr-data/json/supplemental/likelySubtags' ),
     require( 'cldr-data/json/supplemental/timeData' ),
     require( 'cldr-data/json/supplemental/weekData' )
