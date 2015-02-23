@@ -3,6 +3,7 @@
 var ReactGlobalize = require('../../index');
 var React = require('react');
 var Globalize = require('globalize');
+var FormatDate = ReactGlobalize.FormatDate;
 
 Globalize.load(
     require( 'cldr-data/json/main/en/ca-gregorian' ),
@@ -38,13 +39,13 @@ var LocalizedDates = React.createClass({
                     </select>
                 </div>
                 <br/>
-                "GyMMMd" - <ReactGlobalize.FormatDate locale={this.state.locale} date={new Date()} pattern="GyMMMd" />
+                "GyMMMd" - <FormatDate locale={this.state.locale} date={new Date()} pattern="GyMMMd" />
                 <br/>
-                date: "medium" - <ReactGlobalize.FormatDate locale={this.state.locale} date={new Date()} pattern={{ date: "medium" }} />
+                date: "medium" - <FormatDate locale={this.state.locale} date={new Date()} pattern={{ date: "medium" }} />
                 <br/>
-                time: "medium" - <ReactGlobalize.FormatDate locale={this.state.locale} date={new Date()} pattern={{ time: "medium" }} />
+                time: "medium" - <FormatDate locale={this.state.locale} date={new Date()} pattern={{ time: "medium" }} />
                 <br/>
-                datetime: "medium" - <ReactGlobalize.FormatDate locale={this.state.locale} date={new Date()} pattern={{ datetime: 'medium' }} />
+                datetime: "medium" - <FormatDate locale={this.state.locale} date={new Date()} pattern={{ datetime: 'medium' }} />
             </div>
         );
     }
