@@ -6,9 +6,9 @@ var Globalize = require('globalize');
 var FormatNumber = ReactGlobalize.FormatNumber;
 
 Globalize.load(
-    require( 'cldr-data/json/main/en/numbers' ),
-    require( 'cldr-data/json/main/pt/numbers' ),
-    require( 'cldr-data/json/supplemental/likelySubtags' )
+    require( 'cldr-data/main/en/numbers' ),
+    require( 'cldr-data/main/pt/numbers' ),
+    require( 'cldr-data/supplemental/likelySubtags' )
 );
 
 var LocalizedNumbers = React.createClass({

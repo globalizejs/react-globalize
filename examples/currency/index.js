@@ -6,13 +6,13 @@ var Globalize = require('globalize');
 var FormatCurrency = ReactGlobalize.FormatCurrency;
 
 Globalize.load(
-    require( 'cldr-data/json/main/en/numbers' ),
-    require( 'cldr-data/json/main/en/currencies' ),
-    require( 'cldr-data/json/main/pt/numbers' ),
-    require( 'cldr-data/json/main/pt/currencies' ),
-    require( 'cldr-data/json/supplemental/currencyData' ),
-    require( 'cldr-data/json/supplemental/plurals' ),
-    require( 'cldr-data/json/supplemental/likelySubtags' )
+    require( 'cldr-data/main/en/numbers' ),
+    require( 'cldr-data/main/en/currencies' ),
+    require( 'cldr-data/main/pt/numbers' ),
+    require( 'cldr-data/main/pt/currencies' ),
+    require( 'cldr-data/supplemental/currencyData' ),
+    require( 'cldr-data/supplemental/plurals' ),
+    require( 'cldr-data/supplemental/likelySubtags' )
 );
 
 var LocalizedCurrencies = React.createClass({
