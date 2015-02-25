@@ -1,7 +1,7 @@
 
 {
-  "name": "numbers-example",
-  "description": "Numbers Example",
+  "name": "react-globalize-example",
+  "description": "Examples demonstrating use of the components",
   "main": "index.js",
   "devDependencies": {
     "browserify": "^6.3.3",

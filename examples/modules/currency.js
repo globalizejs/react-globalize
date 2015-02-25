@@ -5,17 +5,7 @@ var React = require('react');
 var Globalize = require('globalize');
 var FormatCurrency = ReactGlobalize.FormatCurrency;
 
-Globalize.load(
-    require( 'cldr-data/main/en/numbers' ),
-    require( 'cldr-data/main/en/currencies' ),
-    require( 'cldr-data/main/pt/numbers' ),
-    require( 'cldr-data/main/pt/currencies' ),
-    require( 'cldr-data/supplemental/currencyData' ),
-    require( 'cldr-data/supplemental/plurals' ),
-    require( 'cldr-data/supplemental/likelySubtags' )
-);
-
-var LocalizedCurrencies = React.createClass({
+module.exports.LocalizedCurrencies = React.createClass({
     getInitialState: function() {
         return {
             locale: "en"
@@ -60,7 +50,3 @@ var LocalizedCurrencies = React.createClass({
         );
     }
 });
-
-React.render(
-    <LocalizedCurrencies />, document.getElementById('content')
-);

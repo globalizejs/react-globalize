@@ -5,13 +5,7 @@ var React = require('react');
 var Globalize = require('globalize');
 var FormatNumber = ReactGlobalize.FormatNumber;
 
-Globalize.load(
-    require( 'cldr-data/main/en/numbers' ),
-    require( 'cldr-data/main/pt/numbers' ),
-    require( 'cldr-data/supplemental/likelySubtags' )
-);
-
-var LocalizedNumbers = React.createClass({
+module.exports.LocalizedNumbers = React.createClass({
     getInitialState: function() {
         return {
             locale: "en"
@@ -46,7 +40,3 @@ var LocalizedNumbers = React.createClass({
         );
     }
 });
-
-React.render(
-    <LocalizedNumbers />, document.getElementById('content')
-);
