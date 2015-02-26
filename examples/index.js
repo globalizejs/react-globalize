@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Globalize = require('globalize');
 var LocalizedCurrencies = require('./modules/currency').LocalizedCurrencies;

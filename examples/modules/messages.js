@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var ReactGlobalize = require('../../index');
 var React = require('react');
 var Globalize = require('globalize');
