@@ -2,7 +2,7 @@ var React = require('react');
 var Globalize = require('globalize');
 
 var globalizations = [
-    {formatCurrency: ["amount","currency","options"]},
+    {formatCurrency: ["value","currency","options"]},
     {formatDate: ["date","pattern"]},
     {formatMessage: ["path","variables"]},
     {formatNumber: ["number","options"]}
