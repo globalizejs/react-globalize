@@ -25,13 +25,13 @@ module.exports = React.createClass({
                     </select>
                 </div>
                 <br/>
-                "GyMMMd" - <FormatDate locale={this.state.locale} date={new Date()} pattern="GyMMMd" />
+                "GyMMMd" - <FormatDate locale={this.state.locale} value={new Date()} pattern="GyMMMd" />
                 <br/>
-                date: "medium" - <FormatDate locale={this.state.locale} date={new Date()} pattern={{ date: "medium" }} />
+                date: "medium" - <FormatDate locale={this.state.locale} value={new Date()} pattern={{ date: "medium" }} />
                 <br/>
-                time: "medium" - <FormatDate locale={this.state.locale} date={new Date()} pattern={{ time: "medium" }} />
+                time: "medium" - <FormatDate locale={this.state.locale} value={new Date()} pattern={{ time: "medium" }} />
                 <br/>
-                datetime: "medium" - <FormatDate locale={this.state.locale} date={new Date()} pattern={{ datetime: 'medium' }} />
+                datetime: "medium" - <FormatDate locale={this.state.locale} value={new Date()} pattern={{ datetime: 'medium' }} />
             </div>
         );
     }

@@ -3,7 +3,7 @@ var Globalize = require('globalize');
 
 var globalizations = [
     {formatCurrency: ["value","currency","options"]},
-    {formatDate: ["date","pattern"]},
+    {formatDate: ["value","pattern"]},
     {formatMessage: ["path","variables"]},
     {formatNumber: ["number","options"]}
 ];
