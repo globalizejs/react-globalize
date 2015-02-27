@@ -17,5 +17,9 @@
   "license": "MIT",
   "devDependencies": {
     "browserify": "~9.0.3"
+  },
+  "peerDependencies": {
+    "globalize": "~1.0.0-alpha.17",
+    "react": "~0.12.2"
   }
 }
