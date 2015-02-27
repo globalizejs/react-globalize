@@ -2,6 +2,12 @@
 
 Easy to use [React](http://facebook.github.io/react/) components that provide internationalization features out of the box via [Globalize](https://github.com/jquery/globalize). With a quick update of a value, variable or locale, you get instant UI updates.
 
+## Install
+1. `npm install react-globalize`
+2. In your application just:
+	`var FormatCurrency = require('react-globalize').FormatCurrency;`
+3. Then follow the usage instructions for each component below
+
 ## Components
 Components are the heart of React and the whole point of react-globalize. These components provide simple, easily updatable elements in your page to display things like currency, dates, numbers and messages, formatted or translated to the current locale set by your application.
 
