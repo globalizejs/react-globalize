@@ -1,4 +1,4 @@
-var ReactGlobalize = require('../react-globalize');
+var ReactGlobalize = require('react-globalize');
 var React = require('react');
 var Globalize = require('globalize');
 var FormatMessage = ReactGlobalize.FormatMessage;
