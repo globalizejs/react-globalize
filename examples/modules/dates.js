@@ -1,9 +1,9 @@
-var ReactGlobalize = require('../../index');
+var ReactGlobalize = require('../react-globalize');
 var React = require('react');
 var Globalize = require('globalize');
 var FormatDate = ReactGlobalize.FormatDate;
 
-module.exports.LocalizedDates = React.createClass({
+module.exports = React.createClass({
     getInitialState: function() {
         return {
             locale: "en"

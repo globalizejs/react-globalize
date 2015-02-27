@@ -24,7 +24,7 @@ globalizations.forEach(function(globalization) {
                 Globalize.locale( this.props.locale );
 
                 return (
-                    <span>{Globalize[currentFn].apply(Globalize, propParams)}</span>
+                    React.createElement("span", null, Globalize[currentFn].apply(Globalize, propParams))
                 );
             }
         });

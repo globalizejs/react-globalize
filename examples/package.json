@@ -5,13 +5,14 @@
   "main": "index.js",
   "devDependencies": {
     "browserify": "^6.3.3",
-    "envify": "^3.2.0",
     "reactify": "^0.17.1"
   },
   "dependencies": {
-    "cldr-data": "~26.0.9"
+    "cldr-data": "~26.0.9",
+    "react": "~0.12.2",
+    "globalize":"~1.0.0-alpha.17"
   },
   "scripts": {
-    "build": "browserify --debug --transform reactify index.js > bundle.js"
+    "build": "cp -f ../index.js react-globalize.js && browserify --debug --transform reactify index.js > app.js"
   }
 }

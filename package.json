@@ -13,13 +13,9 @@
     "cldr"
   ],
   "author": "Kris Borchers",
+  "homepage": "https://github.com/kborchers/react-globalize",
   "license": "MIT",
   "devDependencies": {
-    "globalize": "~1.0.0-alpha.17",
-    "react": "~0.12.2"
-  },
-  "peerDependencies": {
-    "globalize": "~1.0.0-alpha.17",
-    "react": "~0.12.2"
+    "browserify": "~9.0.3"
   }
 }

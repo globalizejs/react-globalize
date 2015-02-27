@@ -1,2 +1,3 @@
 node_modules
-examples/bundle.js
+examples/app.js
+examples/react-globalize.js

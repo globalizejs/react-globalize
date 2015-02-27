@@ -1,9 +1,9 @@
 var React = require('react');
 var Globalize = require('globalize');
-var LocalizedCurrencies = require('./modules/currency').LocalizedCurrencies;
-var LocalizedDates = require('./modules/dates').LocalizedDates;
-var LocalizedMessages = require('./modules/messages').LocalizedMessages;
-var LocalizedNumbers = require('./modules/numbers').LocalizedNumbers;
+var LocalizedCurrencies = require('./modules/currency');
+var LocalizedDates = require('./modules/dates');
+var LocalizedMessages = require('./modules/messages');
+var LocalizedNumbers = require('./modules/numbers');
 
 var messages = {
     en: {
