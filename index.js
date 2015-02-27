@@ -5,7 +5,7 @@ var globalizations = [
     {formatCurrency: ["value","currency","options"]},
     {formatDate: ["value","pattern"]},
     {formatMessage: ["path","variables"]},
-    {formatNumber: ["number","options"]}
+    {formatNumber: ["value","options"]}
 ];
 
 globalizations.forEach(function(globalization) {

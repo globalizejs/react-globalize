@@ -25,15 +25,15 @@ module.exports = React.createClass({
                     </select>
                 </div>
                 <br/>
-                pi, no options - <FormatNumber locale={this.state.locale} number={Math.PI} />
+                pi, no options - <FormatNumber locale={this.state.locale} value={Math.PI} />
                 <br/>
-                pi, maximumFractionDigits: 5 - <FormatNumber locale={this.state.locale} number={Math.PI} options={{ maximumFractionDigits: 5 }} />
+                pi, maximumFractionDigits: 5 - <FormatNumber locale={this.state.locale} value={Math.PI} options={{ maximumFractionDigits: 5 }} />
                 <br/>
-                pi, round: 'floor' - <FormatNumber locale={this.state.locale} number={Math.PI} options={{ round: 'floor' }} />
+                pi, round: 'floor' - <FormatNumber locale={this.state.locale} value={Math.PI} options={{ round: 'floor' }} />
                 <br/>
-                10000, minimumFractionDigits: 2 - <FormatNumber locale={this.state.locale} number={10000} options={{ minimumFractionDigits: 2 }} />
+                10000, minimumFractionDigits: 2 - <FormatNumber locale={this.state.locale} value={10000} options={{ minimumFractionDigits: 2 }} />
                 <br/>
-                0.5, style: 'percent' - <FormatNumber locale={this.state.locale} number={0.5} options={{ style: 'percent' }} />
+                0.5, style: 'percent' - <FormatNumber locale={this.state.locale} value={0.5} options={{ style: 'percent' }} />
             </div>
         );
     }
