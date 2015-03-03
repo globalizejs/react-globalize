@@ -15,6 +15,10 @@
   "author": "Kris Borchers",
   "homepage": "https://github.com/kborchers/react-globalize",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kborchers/react-globalize"
+  },
   "devDependencies": {
     "browserify": "~9.0.3"
   },
