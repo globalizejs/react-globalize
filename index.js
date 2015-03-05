@@ -1,32 +1,29 @@
 var React = require('react');
 var Globalize = require('globalize');
 
-var globalizations = [
-    {formatCurrency: ["value","currency","options"]},
-    {formatDate: ["value","pattern"]},
-    {formatMessage: ["path","variables"]},
-    {formatNumber: ["value","options"]}
-];
+Object.getOwnPropertyNames(Globalize).forEach(function(fn) {
+    if (fn.indexOf("format") === 0) {
+        var fnString = Globalize[fn].toString(),
+            argString = fnString.substr(fnString.indexOf('(')+1, fnString.indexOf(')')-(fnString.indexOf('(')+1)).trim(),
+            argArray = argString.split(', ');
 
-globalizations.forEach(function(globalization) {
-    var fn = Object.keys(globalization)[0],
-        params = globalization[fn];
+        (function(currentFn, currentArgs) {
+            module.exports[currentFn.charAt(0).toUpperCase() + currentFn.slice(1)] = React.createClass({
+                currentArgs: currentArgs,
+                render: function() {
+                    var that = this;
+                    var propArgs = this.currentArgs.map(function(element) {
+                            return that.props[element.replace(/(\s\/\*|\*\/)/,'')];
+                        });
 
-    (function(currentFn, currentParams) {
-        module.exports[currentFn.charAt(0).toUpperCase() + currentFn.slice(1)] = React.createClass({
-            currentParams: currentParams,
-            render: function() {
-                var that = this;
-                var propParams = this.currentParams.map(function(element) {
-                        return that.props[element];
-                    });
-                // set locale
-                Globalize.locale( this.props.locale );
+                    // set locale
+                    Globalize.locale( this.props.locale );
 
-                return (
-                    React.createElement("span", null, Globalize[currentFn].apply(Globalize, propParams))
-                );
-            }
-        });
-    })(fn, params);
+                    return (
+                        React.createElement("span", null, Globalize[currentFn].apply(Globalize, propArgs))
+                    );
+                }
+            });
+        })(fn, argArray);
+    }
 });
