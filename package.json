@@ -10,15 +10,19 @@
     "react",
     "globalize",
     "i18n",
+    "internationalization",
+    "translation",
+    "date",
+    "currency",
+    "number",
+    "format",
     "cldr"
   ],
   "author": "Kris Borchers",
   "homepage": "https://github.com/kborchers/react-globalize",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kborchers/react-globalize"
-  },
+  "repository": "kborchers/react-globalize",
+  "bugs": "https://github.com/kborchers/react-globalize/issues",
   "devDependencies": {
     "browserify": "~9.0.3"
   },
