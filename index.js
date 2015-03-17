@@ -1,29 +1,30 @@
-var React = require('react');
 var Globalize = require('globalize');
+var mixins = {};
 
 Object.getOwnPropertyNames(Globalize).forEach(function(fn) {
     if (fn.indexOf("format") === 0) {
-        var fnString = Globalize[fn].toString(),
-            argString = fnString.substr(fnString.indexOf('(')+1, fnString.indexOf(')')-(fnString.indexOf('(')+1)).trim(),
-            argArray = argString.split(', ');
+        var fnString = Globalize[fn].toString();
+        var argString = fnString.substr(fnString.indexOf('(')+1, fnString.indexOf(')')-(fnString.indexOf('(')+1)).trim();
+        var argArray = argString.split(', ');
 
         (function(currentFn, currentArgs) {
-            module.exports[currentFn.charAt(0).toUpperCase() + currentFn.slice(1)] = React.createClass({
-                currentArgs: currentArgs,
-                render: function() {
-                    var that = this;
-                    var propArgs = this.currentArgs.map(function(element) {
-                            return that.props[element.replace(/(\s\/\*|\*\/)/,'')];
-                        });
+            var formatter = function(nextProps) {
+                var componentProps = nextProps || this.props;
+                var propArgs = currentArgs.map(function(element) {
+                        return componentProps[element.replace(/(\s\/\*|\*\/)/,'')];
+                    });
 
-                    // set locale
-                    Globalize.locale( this.props.locale );
+                Globalize.locale( componentProps["locale"] );
+                this.setState({
+                    formattedValue: Globalize[currentFn].apply(Globalize, propArgs)
+                });
+            };
 
-                    return (
-                        React.createElement("span", null, Globalize[currentFn].apply(Globalize, propArgs))
-                    );
-                }
-            });
+            mixins[currentFn] = {
+                componentWillMount: formatter,
+                componentWillReceiveProps: formatter
+            };
         })(fn, argArray);
     }
 });
+module.exports = mixins;
