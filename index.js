@@ -11,7 +11,7 @@ Object.getOwnPropertyNames(Globalize).forEach(function(fn) {
             var formatter = function(nextProps) {
                 var componentProps = nextProps || this.props;
                 var propArgs = currentArgs.map(function(element) {
-                        return componentProps[element.replace(/(\s\/\*|\*\/)/,'')];
+                        return componentProps[element.replace(/(\s\/\*|\*\/)/,'').trim()];
                     });
 
                 Globalize.locale( componentProps["locale"] );
