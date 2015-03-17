@@ -1,17 +1,41 @@
 # react-globalize
 
-Easy to use [React](http://facebook.github.io/react/) components that provide internationalization features out of the box via [Globalize](https://github.com/jquery/globalize). With a quick update of a value, variable or locale, you get instant UI updates.
+Easy to use [React](http://facebook.github.io/react/) mixins that provide internationalization features to any React component via [Globalize](https://github.com/jquery/globalize). With a little initialization, you get instantly internationalized values in your components.
 
 ## Install
 1. `npm install react-globalize`
 2. In your application just:
-	`var FormatCurrency = require('react-globalize').FormatCurrency;`
-3. Then follow the usage instructions for each component below
+	```JS
+	var ReactGlobalize = require('react-globalize');
+	var Globalize = require('globalize');
+	
+	// Initialize Globalize and load your CLDR data
+	// See https://github.com/jquery/globalize for details on Globalize usage
+	
+	// In your component, this example just places the formatted value in a span
+	var CurrencyComponent = React.createClass({
+	    mixins: [ReactGlobalize.formatCurrency],
+	    ...
+	    render: function() {
+	        return (
+                    <span>{this.state.formattedValue}</span>
+                );
+            }
+	});
+	
+	// Then to use your currency component (with JSX)
+	React.render(
+	    <CurrencyComponent locale="en" currency="USD" value={150}/>
+	);
+	// Which would render <span>$150.00</span>
+	```
+	
+3. Further info about each mixin and its available props below
 
-## Components
-Components are the heart of React and the whole point of react-globalize. These components provide simple, easily updatable elements in your page to display things like currency, dates, numbers and messages, formatted or translated to the current locale set by your application.
+## Mixins
+These mixins provide a simple way to display things like currency, dates, numbers and messages, formatted or translated to the current locale set by your application. Each mixin has a set of props, both required and optional, to be included in your component. The mixin then uses the values of those props, to add a `formattedValue` to your component's state. Below is a listing of each mixin, its props and a usage example.
 
-### FormatCurrency
+### formatCurrency
 #### Props
 - **locale** - required
  - A string value representing the CLDR indicator for the desired locale used in formatting the amount. Most apps will pull this value from the component's state or the state of one of its parent compenents.
@@ -22,20 +46,20 @@ Components are the heart of React and the whole point of react-globalize. These 
 - **options**
  - An optional set of options to further format the value. See the [numberFormatter](https://github.com/jquery/globalize/blob/master/doc/api/number/number-formatter.md) docs in Globalize for more info on specific options
 
-#### Usage
+#### Usage via an example FormatCurrency component
 - Default format with USD in English
 
   `<FormatCurrency locale="en" currency="USD" value={150} />`
 
-Result: $150.00
+Result: this.state.formattedValue = $150.00
 
 - Accounting format with EUR in Portuguese
 
   `<FormatCurrency locale="pt-BR" currency="EUR" value={-150} options={{ style: "accounting" }} />`
 
-Result: (€150,00)
+Result: this.state.formattedValue = (€150,00)
 
-### FormatDate
+### formatDate
 #### Props
 - **locale** - required
  - A string value representing the CLDR indicator for the desired locale used in formatting the date. Most apps will pull this value from the component's state or the state of one of its parent compenents.
@@ -44,20 +68,20 @@ Result: (€150,00)
 - **pattern** - required
  - An string or object which defines how to format the date. See the [dateFormatter](https://github.com/jquery/globalize/blob/master/doc/api/date/date-formatter.md) docs in Globalize for more info on supported patterns
 
-#### Usage
+#### Usage via an example FormatDate component
 - Simple string skeleton in English
 
   `<FormatDate locale="en" value={new Date()} pattern="GyMMMd" />`
 
-Result: Feb 27, 2015 AD
+Result: this.state.formattedValue = Feb 27, 2015 AD
 
 - Medium length date and time in Portuguese
 
   `<FormatDate locale="pt-BR" value={new Date()} pattern={{ datetime: 'medium' }} />`
 
-Result: 27 de fev de 2015 11:17:10
+Result: this.state.formattedValue = 27 de fev de 2015 11:17:10
 
-### FormatMessage
+### formatMessage
 #### Props
 - **locale** - required
  - A string value representing the CLDR indicator for the desired locale used in formatting the message. Most apps will pull this value from the component's state or the state of one of its parent compenents.
@@ -66,7 +90,7 @@ Result: 27 de fev de 2015 11:17:10
 - **variables**
  - An array (where variables are represented as indeces) or object (for named variables) which contains values for variable replacement within a message.
 
-#### Usage
+#### Usage via an example FormatMessage component
 Below message JSON used in these examples:
   ```JS
   {
@@ -96,23 +120,23 @@ Below message JSON used in these examples:
 
 Hi in English: `<FormatMessage locale="en" path="salutations/hi" />`
 
-Result: Hi
+Result: this.state.formattedValue = Hi
 
 Hi in Portuguese: `<FormatMessage locale="pt-BR" path="salutations/hi" />`
 
-Result: Oi
+Result: this.state.formattedValue = Oi
 
 - Variable Replacement
 
 Array in English: `<FormatMessage locale="en" path="variables/hello" variables={["Wolfgang", "Amadeus", "Mozart"]} />`
 
-Result: Hello, Wolfgang Amadeus Mozart
+Result: this.state.formattedValue = Hello, Wolfgang Amadeus Mozart
 
 Object in Portuguese: `<FormatMessage locale="pt-BR" path="variables/hey" variables={{first:"Wolfgang", middle:"Amadeus", last:"Mozart"}} />`
 
-Result: Ei, Wolfgang Amadeus Mozart
+Result: this.state.formattedValue = Ei, Wolfgang Amadeus Mozart
 
-### FormatNumber
+### formatNumber
 #### Props
 - **locale** - required
  - A string value representing the CLDR indicator for the desired locale used in formatting the date. Most apps will pull this value from the component's state or the state of one of its parent compenents.
@@ -121,18 +145,18 @@ Result: Ei, Wolfgang Amadeus Mozart
 - **options**
  - An optional set of options to further format the value. See the [numberFormatter](https://github.com/jquery/globalize/blob/master/doc/api/number/number-formatter.md) docs in Globalize for more info on specific options
 
-#### Usage
+#### Usage via an example FormatNumber component
 - Default format pi in English
 
   `<FormatNumber locale="en" value={Math.PI} />`
 
-Result: 3.142
+Result: this.state.formattedValue = 3.142
 
 - Show at least 2 decimal places in Portuguese
 
   `<FormatNumber locale="pt-BR" value={10000} options={{ minimumFractionDigits: 2 }} />`
 
-Result: 10.000,00
+Result: this.state.formattedValue = 10.000,00
 
 ## License
 This project is distributed under the [MIT license](https://www.tldrlegal.com/l/mit).
