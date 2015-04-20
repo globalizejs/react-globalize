@@ -1,14 +1,5 @@
-var ReactGlobalize = require('../react-globalize');
+var FormatNumber = require('../react-globalize').FormatNumber;
 var React = require('react');
-
-var FormatNumber = React.createClass({
-    mixins: [ReactGlobalize.formatNumber],
-    render: function() {
-        return (
-            <span>{this.state.formattedValue}</span>
-        );
-    }
-});
 
 module.exports = React.createClass({
     getInitialState: function() {

@@ -1,14 +1,5 @@
-var ReactGlobalize = require('../react-globalize');
+var FormatCurrency = require('../react-globalize').FormatCurrency;
 var React = require('react');
-
-var FormatCurrency = React.createClass({
-    mixins: [ReactGlobalize.formatCurrency],
-    render: function() {
-        return (
-            <span>{this.state.formattedValue}</span>
-        );
-    }
-});
 
 module.exports = React.createClass({
     getInitialState: function() {

@@ -1,14 +1,5 @@
-var ReactGlobalize = require('../react-globalize');
+var FormatDate = require('../react-globalize').FormatDate;
 var React = require('react');
-
-var FormatDate = React.createClass({
-    mixins: [ReactGlobalize.formatDate],
-    render: function() {
-        return (
-            <span>{this.state.formattedValue}</span>
-        );
-    }
-});
 
 module.exports = React.createClass({
     getInitialState: function() {
