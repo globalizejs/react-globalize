@@ -1,0 +1,14 @@
+{
+  "name": "react-globalize-example",
+  "devDependencies": {
+    "almond": "~0.3.1",
+    "cldr-data": "27.x",
+    "globalize": "jquery/globalize#fix-398-runtime",
+    "react": "0.13.1",
+    "react-globalize": "rxaviers/react-globalize#addons",
+    "requirejs": "2.1.x",
+    "requirejs-plugins": "1.0.2",
+    "requirejs-react-jsx": "0.13.1",
+    "requirejs-text": "2.0.x"
+  }
+}

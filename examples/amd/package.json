@@ -1,0 +1,15 @@
+{
+  "name": "react-globalize-example",
+  "description": "Examples demonstrating use of the components",
+  "main": "app.js",
+  "devDependencies": {
+    "react": "~0.13.0",
+    "react-tools": "^0.13.2",
+    "requirejs": "^2.1.17",
+    "uglify-js": "^2.4.20"
+  },
+  "scripts": {
+    "clean": "for DIR in tmp dist; do ( test -d $DIR && rm -rf $DIR ); mkdir $DIR; done",
+    "build": "npm run-script clean && ./globalize-compiler > tmp/globalize-precompiled-formatters.js && ./build && cp tmp/.build/app.js dist/production.js && uglifyjs dist/production.js > dist/production.min.js"
+  }
+}

@@ -1,5 +1,27 @@
-var Globalize = require("globalize");
-var React = require("react");
+(function(root, factory) {
+
+    // UMD returnExports
+    if (typeof define === "function" && define.amd) {
+        // AMD
+        define([
+            "globalize",
+            "react",
+            "globalize/currency",
+            "globalize/date",
+            "globalize/message",
+            "globalize/number",
+            "globalize/plural",
+            "globalize/relative-time"
+        ], factory );
+    } else if ( typeof exports === "object" ) {
+        // Node, CommonJS
+        module.exports = factory(require("globalize"), require("react"));
+    } else {
+        // Global
+        root.ReactGlobalize = factory(root.Global, root.React);
+    }
+}(this, function(Globalize, React) {
+
 var ReactGlobalize = {};
 
 function capitalizeFirstLetter(string) {
@@ -54,4 +76,6 @@ Object.getOwnPropertyNames(Globalize).forEach(function(fn) {
     }
 });
 
-module.exports = ReactGlobalize;
+return ReactGlobalize;
+
+}));
