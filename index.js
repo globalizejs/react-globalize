@@ -9,14 +9,17 @@ Object.getOwnPropertyNames(Globalize).forEach(function(fn) {
 
         (function(currentFn, currentArgs) {
             var formatter = function(nextProps) {
+                var instance = Globalize;
                 var componentProps = nextProps || this.props;
                 var propArgs = currentArgs.map(function(element) {
                         return componentProps[element.replace(/(\s\/\*|\*\/)/,"").trim()];
                     });
 
-                Globalize.locale( componentProps["locale"] );
+                if (componentProps["locale"]) {
+                  instance = Globalize(componentProps["locale"]);
+                }
                 this.setState({
-                    formattedValue: Globalize[currentFn].apply(Globalize, propArgs)
+                    formattedValue: instance[currentFn].apply(instance, propArgs)
                 });
             };
 
@@ -27,4 +30,5 @@ Object.getOwnPropertyNames(Globalize).forEach(function(fn) {
         })(fn, argArray);
     }
 });
+
 module.exports = mixins;
