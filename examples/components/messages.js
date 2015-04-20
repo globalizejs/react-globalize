@@ -1,15 +1,6 @@
-var ReactGlobalize = require('../react-globalize');
+var FormatMessage = require('../react-globalize').FormatMessage;
 var React = require('react');
 var Globalize = require('globalize');
-
-var FormatMessage = React.createClass({
-    mixins: [ReactGlobalize.formatMessage],
-    render: function() {
-        return (
-            <span>{this.state.formattedValue}</span>
-        );
-    }
-});
 
 module.exports = React.createClass({
     getInitialState: function() {
