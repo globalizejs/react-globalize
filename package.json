@@ -23,10 +23,12 @@
   "license": "MIT",
   "repository": "kborchers/react-globalize",
   "bugs": "https://github.com/kborchers/react-globalize/issues",
-  "devDependencies": {
-    "browserify": "~9.0.3"
+  "dependencies": {
+    "globalize": ">= 1.0.0",
+    "react": ">= 0.12.0"
   },
   "peerDependencies": {
-    "react": "~0.13.1"
+    "globalize": ">= 1.0.0",
+    "react": ">= 0.12.0"
   }
 }
