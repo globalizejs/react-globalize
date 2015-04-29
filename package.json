@@ -24,11 +24,11 @@
   "repository": "kborchers/react-globalize",
   "bugs": "https://github.com/kborchers/react-globalize/issues",
   "dependencies": {
-    "globalize": ">= 1.0.0",
-    "react": ">= 0.12.0"
+    "globalize": "1.*.*",
+    "react": "0.*.*"
   },
   "peerDependencies": {
-    "globalize": ">= 1.0.0",
-    "react": ">= 0.12.0"
+    "globalize": "1.*.*",
+    "react": "0.*.*"
   }
 }
