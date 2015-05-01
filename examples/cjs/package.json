@@ -1,0 +1,23 @@
+{
+  "name": "react-globalize-example",
+  "description": "Examples demonstrating use of the components",
+  "main": "app.js",
+  "devDependencies": {
+    "browserify": "^6.3.3",
+    "node-jsx": "^0.12.4",
+    "reactify": "^0.17.1",
+    "uglify-js": "^2.4.20"
+  },
+  "dependencies": {
+    "cldr-data": "27.x",
+    "react": "~0.13.0",
+    "react-globalize": "rxaviers/react-globalize#addons",
+    "globalize": "jquery/globalize#fix-398-runtime"
+  },
+  "scripts": {
+    "clean": "for DIR in tmp dist; do ( test -d $DIR && rm -rf $DIR ) && mkdir $DIR; done",
+    "build": "npm run-script clean && npm run-script build-development && npm run-script build-production",
+    "build-development": "browserify --debug --extension=.jsx --transform reactify development.jsx > tmp/development.js",
+    "build-production": "./globalize-compiler > tmp/globalize-precompiled-formatters.js && browserify --extension=.jsx --transform reactify --exclude globalize production.jsx > dist/production.js && uglifyjs dist/production.js > dist/production.min.js"
+  }
+}

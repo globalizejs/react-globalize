@@ -1,0 +1,41 @@
+#! /usr/bin/env node
+
+var requirejs = require("requirejs");
+var util = require("util");
+
+var config = require("./src/config");
+config.paths.almond = "../bower_components/almond/almond";
+config.paths["globalize-precompiled-formatters"] = "../tmp/globalize-precompiled-formatters";
+config.paths["globalize-runtime"] = "../bower_components/globalize/dist/globalize-runtime";
+config.map = {
+    "*": {
+        "globalize": "globalize-runtime"
+    }
+};
+delete config.paths["cldr-data"];
+
+util._extend(config, {
+    dir: "tmp/.build",
+    appDir: "src",
+    baseUrl: ".",
+    optimize: "none",
+    skipDirOptimize: true,
+    skipSemiColonInsertion: true,
+    skipModuleInsertion: true,
+    findNestedDependencies: true,
+    stubModules : ["text"],
+    onBuildWrite: function (id, path, contents) {
+        return contents
+            .replace(/"globalize"/g, "\"globalize-runtime\"")
+            .replace(/"globalize\//g, "\"globalize-runtime\/")
+            .replace(/jsx!/g, "");
+    },
+    modules: [{
+      name: "app",
+      include: ["almond", "jsx!production"],
+      exclude: ["jsx"],
+      create: true
+    }]
+});
+
+requirejs.optimize(config, function(){}, console.error);

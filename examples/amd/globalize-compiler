@@ -1,0 +1,21 @@
+#! /usr/bin/env node
+
+var GlobalizeCompiler = require("globalize/tool/compiler");
+var React = require("react");
+var requirejs = require("requirejs");
+var config = require("./src/config");
+
+config.nodeRequire = require;
+config.baseUrl = __dirname + "/src";
+requirejs.config(config);
+
+Globalize = requirejs("globalize");
+requirejs("load-globalize-i18n-data");
+var App = requirejs("jsx!app");
+
+// Have react to render all passed components, therefore any formatters in use will be created.
+React.renderToString(React.createElement(App, {locale: "en"}));
+React.renderToString(React.createElement(App, {locale: "pt"}));
+
+// Compile all generated formatters.
+console.log(GlobalizeCompiler(Globalize.cache));

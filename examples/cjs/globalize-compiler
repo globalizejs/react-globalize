@@ -1,0 +1,15 @@
+#! /usr/bin/env node
+
+require("node-jsx").install({extension: ".jsx"});
+var React = require("react");
+var ReactGlobalizeCompiler = require("react-globalize/compiler");
+
+require("./load-globalize-i18n-data");
+var App = require("./app");
+
+console.log(
+    ReactGlobalizeCompiler(
+        React.createElement(App,{locale:"en"}),
+        React.createElement(App,{locale:"pt"})
+    )
+);

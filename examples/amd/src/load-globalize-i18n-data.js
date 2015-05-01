@@ -1,9 +1,21 @@
-var React = require('react');
-var Globalize = require('globalize');
-var LocalizedCurrencies = require('./modules/currency');
-var LocalizedDates = require('./modules/dates');
-var LocalizedMessages = require('./modules/messages');
-var LocalizedNumbers = require('./modules/numbers');
+define([
+    "cldr",
+    "globalize",
+    "json!cldr-data/main/en/ca-gregorian.json",
+    "json!cldr-data/main/en/timeZoneNames.json",
+    "json!cldr-data/main/en/numbers.json",
+    "json!cldr-data/main/en/currencies.json",
+    "json!cldr-data/main/pt/ca-gregorian.json",
+    "json!cldr-data/main/pt/timeZoneNames.json",
+    "json!cldr-data/main/pt/numbers.json",
+    "json!cldr-data/main/pt/currencies.json",
+    "json!cldr-data/supplemental/currencyData.json",
+    "json!cldr-data/supplemental/plurals.json",
+    "json!cldr-data/supplemental/likelySubtags.json",
+    "json!cldr-data/supplemental/timeData.json",
+    "json!cldr-data/supplemental/weekData.json",
+    "globalize/message"
+], function(Cldr, Globalize, enCaGregorian, enTimeZoneNames, enNumbers, enCurrencies, ptCaGregorian, ptTimeZoneNames, ptNumbers, ptCurrencies, currencyData, plurals, likelySubtags, timeData, weekData) {
 
 var messages = {
     en: {
@@ -38,7 +50,7 @@ var messages = {
             "}"
         ]
     },
-    "pt-BR": {
+      "pt": {
         salutations: {
             hi: "Oi",
             bye: "Tchau"
@@ -84,32 +96,7 @@ var messages = {
     }
 };
 
-Globalize.load(
-    require( 'cldr-data/main/en/ca-gregorian' ),
-    require( 'cldr-data/main/en/timeZoneNames' ),
-    require( 'cldr-data/main/en/numbers' ),
-    require( 'cldr-data/main/en/currencies' ),
-    require( 'cldr-data/main/pt/ca-gregorian' ),
-    require( 'cldr-data/main/pt/timeZoneNames' ),
-    require( 'cldr-data/main/pt/numbers' ),
-    require( 'cldr-data/main/pt/currencies' ),
-    require( 'cldr-data/supplemental/currencyData' ),
-    require( 'cldr-data/supplemental/plurals' ),
-    require( 'cldr-data/supplemental/likelySubtags' ),
-    require( 'cldr-data/supplemental/timeData' ),
-    require( 'cldr-data/supplemental/weekData' )
-);
+Globalize.load(enCaGregorian, enTimeZoneNames, enNumbers, enCurrencies, ptCaGregorian, ptTimeZoneNames, ptNumbers, ptCurrencies, currencyData, plurals, likelySubtags, timeData, weekData);
 Globalize.loadMessages(messages);
 
-React.render(
-    <LocalizedCurrencies />, document.getElementById('currency')
-);
-React.render(
-    <LocalizedDates />, document.getElementById('dates')
-);
-React.render(
-    <LocalizedMessages />, document.getElementById('messages')
-);
-React.render(
-    <LocalizedNumbers />, document.getElementById('numbers')
-);
+});
