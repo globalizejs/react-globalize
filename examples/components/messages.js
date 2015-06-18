@@ -1,6 +1,6 @@
 var FormatMessage = require('../react-globalize').FormatMessage;
-var FormatNumber = require('../react-globalize').FormatNumber;
 var React = require('react');
+var Globalize = require('globalize');
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -46,10 +46,7 @@ module.exports = React.createClass({
                 <br/>
                 task count 0 - <FormatMessage locale={this.state.locale} path="task" variables={{count: 0}} />
                 <br/>
-                task count 1000 formatted - <FormatMessage ref="formattedTask" locale={this.state.locale} path="task" variables={{
-                    count: 1000,
-                    formattedCount: <FormatNumber locale={this.state.locale} value={1000} />
-                }} />
+                task count 1000 formatted - <FormatMessage ref="formattedTask" locale={this.state.locale} path="task" variables={{count: 1000, formattedCount: Globalize(this.state.locale).formatNumber(1000)}} />
                 <br/>
                 like count 0 with offset:1 - <FormatMessage locale={this.state.locale} path="likeIncludingMe" variables={{count: 0}} />
                 <br/>
