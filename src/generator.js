@@ -9,6 +9,9 @@ function generator(fn, argArray, options) {
     var Fn = capitalizeFirstLetter(fn);
     options = options || {};
     var beforeFormat = options.beforeFormat || function() {};
+    var afterFormat = options.afterFormat || function(formattedValue) {
+        return formattedValue;
+    }
     return {
         displayName: Fn,
         format: function() {
@@ -30,7 +33,7 @@ function generator(fn, argArray, options) {
             }
 
             beforeFormat.call(this);
-            return React.DOM.span(null, this.format());
+            return React.DOM.span(null, afterFormat.call(this, this.format()));
         }
     }
 };
