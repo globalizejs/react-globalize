@@ -18,7 +18,7 @@
 
 	// Then, to use any ReactGlobalize component (with JSX)
 	React.render(
-	    <FormatCurrency currency="USD" value={150}/>
+	    <FormatCurrency currency="USD">{150}</FormatCurrency>
 	);
 	// Which would render for example:
 	// <span>$150.00</span> when using the `en` (English) locale, or
@@ -40,12 +40,14 @@ It allows to format a currency. Your code can be completely independent of the l
 
 [currencyFormatter]: https://github.com/jquery/globalize/blob/master/doc/api/currency/currency-formatter.md
 
+#### Children
+
+The numeric value to be formatted. Required.
+
 #### Props
 
 - **currency** - required
  - A 3-letter string currency code as defined by ISO 4217 (e.g., USD, EUR, CNY, etc).
-- **value** - required
- - The numeric value to be formatted
 - **options**
  - An optional set of options to further format the value. See the [currencyFormatter][] docs in Globalize for more info on specific options
 - **locale** - optional
@@ -55,13 +57,13 @@ It allows to format a currency. Your code can be completely independent of the l
 
 - Default format with USD in English
 
-  `<FormatCurrency currency="USD" value={150} />`
+  `<FormatCurrency currency="USD">{150}</FormatCurrency>`
 
 Result: `<span>$150.00</span>` when using the `en` (English) locale.
 
 - Accounting format with EUR in Portuguese
 
-  `<FormatCurrency currency="EUR" value={-150} options={{ style: "accounting" }} />`
+  `<FormatCurrency currency="EUR" options={{ style: "accounting" }}>{-150}</FormatCurrency>`
 
 Result: `<span>(€150,00)</span>` when using the `pt` (Portuguese) locale.
 
@@ -70,6 +72,10 @@ Result: `<span>(€150,00)</span>` when using the `pt` (Portuguese) locale.
 It allows to convert dates and times from their internal representations to textual form in a language-independent manner. Your code can conveniently control the length of the formatted date, time, datetime. See [dateFormatter][] docs in Globalize for more information.
 
 [dateFormatter]: https://github.com/jquery/globalize/blob/master/doc/api/date/date-formatter.md
+
+#### Children
+
+The date object to be formatted. Required.
 
 #### Props
 
@@ -84,13 +90,13 @@ It allows to convert dates and times from their internal representations to text
 
 - Simple string skeleton
 
-  `<FormatDate value={new Date()} options={{skeleton: "GyMMMd"}} />`
+  `<FormatDate options={{skeleton: "GyMMMd"}}>{new Date()}</FormatDate>`
 
 Result: `<span>Feb 27, 2015 AD</span>` when using the `en` (English) locale.
 
 - Medium length date and time
 
-  `<FormatDate value={new Date()} options={{ datetime: "medium" }} />`
+  `<FormatDate options={{ datetime: "medium" }}>{new Date()}</FormatDate>`
 
 Result: `<span>27 de fev de 2015 11:17:10</span>` when using the `pt` (Portuguese) locale.
 
@@ -100,6 +106,10 @@ It allows for the creation of internationalized messages (as defined by the [ICU
 
 [messageFormatter]: https://github.com/jquery/globalize/blob/master/doc/api/message/message-formatter.md
 [ICU Message syntax]: http://userguide.icu-project.org/formatparse/messages
+
+#### Children
+
+String or array path to traverse a set of messages store in JSON format. Required.
 
 #### Props
 
@@ -139,7 +149,7 @@ Below message JSON used in these examples:
   ```
 - Simple salutation
 
-Hi: `<FormatMessage path="salutations/hi" />`
+Hi: `<FormatMessage>{"salutations/hi"}</FormatMessage>`
 
 Result:
 
@@ -149,11 +159,11 @@ Result:
 
 - Variable Replacement
 
-Array: `<FormatMessage path="variables/hello" variables={["Wolfgang", "Amadeus", "Mozart"]} />`
+Array: `<FormatMessage variables={["Wolfgang", "Amadeus", "Mozart"]}>{"variables/hello"}</FormatMessage>`
 
 Result: `<span>Hello, Wolfgang Amadeus Mozart</span>` when using the `en` (English) locale.
 
-Object in Portuguese: `<FormatMessage path="variables/hey" variables={{first:"Wolfgang", middle:"Amadeus", last:"Mozart"}} />`
+Object in Portuguese: `<FormatMessage variables={{first:"Wolfgang", middle:"Amadeus", last:"Mozart"}}>{"variables/hey"}</FormatMessage>`
 
 Result: `<span>Ei, Wolfgang Amadeus Mozart</span>` when using the `pt` (Portuguese) locale.
 
@@ -162,6 +172,10 @@ Result: `<span>Ei, Wolfgang Amadeus Mozart</span>` when using the `pt` (Portugue
 It allows to convert numbers into textual representations. Your code can be completely independent of the locale conventions for decimal points, thousands-separators, or even the particular decimal digits used, or whether the number format is even decimal. Though, it can still conveniently control various aspects of the formatted number like the minimum and maximum fraction digits, integer padding, rounding method, display as percentage, and others. See [numberFormatter][] docs in Globalize for more information.
 
 [numberFormatter]: https://github.com/jquery/globalize/blob/master/doc/api/number/number-formatter.md
+
+#### Children
+
+The number to be formatted. Required.
 
 #### Props
 
@@ -176,13 +190,13 @@ It allows to convert numbers into textual representations. Your code can be comp
 
 - Default format pi in English
 
-  `<FormatNumber locale="en" value={Math.PI} />`
+  `<FormatNumber locale="en">{Math.PI}</FormatNumber>`
 
 Result: `<span>3.142</span>` when using the `en` (English) locale.
 
 - Show at least 2 decimal places in Portuguese
 
-  `<FormatNumber value={10000} options={{ minimumFractionDigits: 2 }} />`
+  `<FormatNumber options={{ minimumFractionDigits: 2 }}>{10000}</FormatNumber>`
 
 Result: `<span>10.000,00</span>` when using the `pt` (Portuguese) locale.
 

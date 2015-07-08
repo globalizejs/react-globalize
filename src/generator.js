@@ -21,6 +21,9 @@ function generator(fn, argArray, options) {
                 return componentProps[element];
             });
 
+            // Get value from this.props.children.
+            this.args[0] = this.props.children;
+
             if (this.props["locale"]) {
               this.instance = Globalize(this.props["locale"]);
             }
