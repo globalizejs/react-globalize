@@ -101,7 +101,7 @@ function replaceElements(componentProps, formatted) {
             var element = elements[key];
 
             ret.forEach(function(string, i) {
-                var aux;
+                var aux, contents, regexp, regexp2;
 
                 // Insert array into the correct ret position.
                 function replaceRetItem(array) {
@@ -118,6 +118,20 @@ function replaceElements(componentProps, formatted) {
                     aux = spreadElementsInBetweenItems(aux, element);
                     replaceRetItem(aux);
                     return; // continue;
+                }
+
+                // Start-end tags, e.g., `[foo]content[/foo]`.
+                regexp = new RegExp("\\[" + key + "\\][\\s\\S]*?\\[\\/" + key + "\\]", "g");
+                regexp2 = new RegExp("\\[" + key + "\\]([\\s\\S]*?)\\[\\/" + key + "\\]");
+                aux = string.split(regexp);
+                if (aux.length > 1) {
+                    contents = string.match(regexp).map(function(content) {
+                        return content.replace(regexp2, "$1");
+                    });
+                    aux = spreadElementsInBetweenItems(aux, function(i) {
+                        return React.cloneElement(element, {}, contents[i]);
+                    });
+                    replaceRetItem(aux);
                 }
             });
 

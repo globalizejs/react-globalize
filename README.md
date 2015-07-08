@@ -135,6 +135,8 @@ Required unless the `path` property is set. It's a string with the default messa
  - String or array path to traverse a set of messages store in JSON format. Defaults to the message itself defined by the children.
 - **variables** - optional
  - An array (where variables are represented as indeces) or object (for named variables) which contains values for variable replacement within a message.
+- **elements** - optional
+ - An object (where element names are represented as keys, and its corresponding element as values) which contains elements replacement within a message.
 - **locale** - optional
  - A string value representing the locale (as defined by BCP47) used to override the default locale (preferred) set by your application using `Globalize.locale(locale)` when formatting the amount.
 
@@ -178,6 +180,24 @@ Variable Replacement.
 // Which would render:
 // <span>Hey, Wolfgang Amadeus Mozart</span> when using the default message, in this case `en` (English).
 // <span>Ei, Wolfgang Amadeus Mozart</span> when using the `pt` (Portuguese) locale and its translation messages.
+```
+
+Element Replacement.
+
+```js
+<FormatMessage
+  elements={{
+    reactGlobalizeLink: <a href='https://github.com/kborchers/react-globalize'></a>
+  }}
+>
+  For more information, see [reactGlobalize]React Globalize[/reactGlobalize]
+</FormatMessage>
+// Which would render:
+// <span>
+//   For more information, see 
+//   <a href="https://github.com/kborchers/react-globalize">React Globalize</a>
+// </span>
+// when using the default message, in this case `en` (English).
 ```
 
 See [messageFormatter][] docs in Globalize for more message examples (e.g., pluralization or gender selection).
