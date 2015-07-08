@@ -8,6 +8,7 @@ function capitalizeFirstLetter(string) {
 function generator(fn, argArray, options) {
     var Fn = capitalizeFirstLetter(fn);
     options = options || {};
+    var beforeFormat = options.beforeFormat || function() {};
     return {
         displayName: Fn,
         format: function() {
@@ -28,6 +29,7 @@ function generator(fn, argArray, options) {
               this.instance = Globalize(this.props["locale"]);
             }
 
+            beforeFormat.call(this);
             return React.DOM.span(null, this.format());
         }
     }

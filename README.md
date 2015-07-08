@@ -55,17 +55,25 @@ The numeric value to be formatted. Required.
 
 #### Usage
 
-- Default format with USD in English
+Default format with USD.
 
-  `<FormatCurrency currency="USD">{150}</FormatCurrency>`
+```js
+<FormatCurrency currency="USD">{150}</FormatCurrency>
+// Which would render:
+// <span>$150.00</span> when using the `en` (English) locale, or
+// <span>US$150,00</span> when using the `pt` (Portuguese) locale.
+```
 
-Result: `<span>$150.00</span>` when using the `en` (English) locale.
+Accounting format with EUR.
 
-- Accounting format with EUR in Portuguese
-
-  `<FormatCurrency currency="EUR" options={{ style: "accounting" }}>{-150}</FormatCurrency>`
-
-Result: `<span>(€150,00)</span>` when using the `pt` (Portuguese) locale.
+```js
+<FormatCurrency currency="EUR" options={{style: "accounting"}}>
+	{-150}
+</FormatCurrency>
+// Which would render:
+// <span>(€150.00)</span> when using the `en` (English) locale, or
+// <span>(€150,00)</span> when using the `pt` (Portuguese) locale.
+```
 
 ### FormatDate
 
@@ -88,17 +96,27 @@ The date object to be formatted. Required.
 
 #### Usage
 
-- Simple string skeleton
+Simple string skeleton.
 
-  `<FormatDate options={{skeleton: "GyMMMd"}}>{new Date()}</FormatDate>`
+```js
+<FormatDate options={{skeleton: "GyMMMd"}}>
+	{new Date()}
+</FormatDate>
+// Which would render:
+// <span>Feb 27, 2015 AD</span> when using the `en` (English) locale, or
+// <span>27 de fev de 2015 d.C.</span> when using the `pt` (Portuguese) locale.
+```
 
-Result: `<span>Feb 27, 2015 AD</span>` when using the `en` (English) locale.
+Medium length date and time.
 
-- Medium length date and time
-
-  `<FormatDate options={{ datetime: "medium" }}>{new Date()}</FormatDate>`
-
-Result: `<span>27 de fev de 2015 11:17:10</span>` when using the `pt` (Portuguese) locale.
+```js
+<FormatDate options={{datetime: "medium"}}>
+	{new Date()}
+</FormatDate>
+// Which would render:
+// <span>Feb 27, 2015, 11:17:10 AM</span> when using the `en` (English) locale, or
+// <span>27 de fev de 2015 11:17:10</span> when using the `pt` (Portuguese) locale.
+```
 
 ### FormatMessage
 
@@ -109,12 +127,12 @@ It allows for the creation of internationalized messages (as defined by the [ICU
 
 #### Children
 
-String or array path to traverse a set of messages store in JSON format. Required.
+Required unless the `path` property is set. It's a string with the default message. Either this or the `path` property is required.
 
 #### Props
 
-- **path** - required
- - String or array path to traverse a set of messages store in JSON format
+- **path** - required unless children is set
+ - String or array path to traverse a set of messages store in JSON format. Defaults to the message itself defined by the children.
 - **variables** - optional
  - An array (where variables are represented as indeces) or object (for named variables) which contains values for variable replacement within a message.
 - **locale** - optional
@@ -122,50 +140,47 @@ String or array path to traverse a set of messages store in JSON format. Require
 
 #### Usage
 
-Below message JSON used in these examples:
-  ```JS
-  {
-    en: {
-      salutations: {
-        hi: "Hi",
-        bye: "Bye"
-      },
-      variables: {
-        hello: "Hello, {0} {1} {2}",
-        hey: "Hey, {first} {middle} {last}"
-      }
-    },
-    "pt": {
-      salutations: {
-        hi: "Oi",
-        bye: "Tchau"
-      },
-      variables: {
-        hello: "Olá, {0} {1} {2}",
-        hey: "Ei, {first} {middle} {last}"
-      }
-    }
-  }
-  ```
-- Simple salutation
+Below translation message JSON used in these examples:
+```js
+{
+	"pt": {
+		"Hi": "Oi",
+		"Hi, {0} {1} {2}": "Olá, {0} {1} {2}",
+		"Hello, {first} {middle} {last}": "Ei, {first} {middle} {last}"
+	}
+}
+```
 
-Hi: `<FormatMessage>{"salutations/hi"}</FormatMessage>`
+Simple salutation.
 
-Result:
+```js
+<FormatMessage>Hi</FormatMessage>
+// Which would render:
+// <span>Hi</span> when using the default message, in this case `en` (English).
+// <span>Oi</span> when using the `pt` (Portuguese) locale and its translation messages.
+```
 
-  `<span>Hi</span>` when using the `en` (English) locale, or
+Variable Replacement.
 
-  `<span>Oi</span>` when using the `pt` (Portuguese) locale.
+```js
+// Using Array.
+<FormatMessage variables={["Wolfgang", "Amadeus", "Mozart"]}>
+	{"Hi, {0} {1} {2}"}
+</FormatMessage>
+// Which would render:
+// <span>Hello, Wolfgang Amadeus Mozart</span> when using the default message, in this case `en` (English).
+// <span>Hello, Wolfgang Amadeus Mozart</span> when using the `en` (English) locale and its translation messages.
 
-- Variable Replacement
+// Using Object.
+<FormatMessage variables={{first:"Wolfgang", middle:"Amadeus", last:"Mozart"}}>
+  {"Hey, {first} {middle} {last}"}
+</FormatMessage>
+// Which would render:
+// <span>Hey, Wolfgang Amadeus Mozart</span> when using the default message, in this case `en` (English).
+// <span>Ei, Wolfgang Amadeus Mozart</span> when using the `pt` (Portuguese) locale and its translation messages.
+```
 
-Array: `<FormatMessage variables={["Wolfgang", "Amadeus", "Mozart"]}>{"variables/hello"}</FormatMessage>`
-
-Result: `<span>Hello, Wolfgang Amadeus Mozart</span>` when using the `en` (English) locale.
-
-Object in Portuguese: `<FormatMessage variables={{first:"Wolfgang", middle:"Amadeus", last:"Mozart"}}>{"variables/hey"}</FormatMessage>`
-
-Result: `<span>Ei, Wolfgang Amadeus Mozart</span>` when using the `pt` (Portuguese) locale.
+See [messageFormatter][] docs in Globalize for more message examples (e.g., pluralization or gender selection).
 
 ### FormatNumber
 
@@ -188,17 +203,25 @@ The number to be formatted. Required.
 
 #### Usage
 
-- Default format pi in English
+Default format pi.
 
-  `<FormatNumber locale="en">{Math.PI}</FormatNumber>`
+```js
+<FormatNumber locale="en">{Math.PI}</FormatNumber>
+// Which would render:
+// <span>3.142</span> when using the `en` (English) locale, or
+// <span>3,142</span> when using the `pt` (Portuguese) locale.
+```
 
-Result: `<span>3.142</span>` when using the `en` (English) locale.
+Show at least 2 decimal places.
 
-- Show at least 2 decimal places in Portuguese
-
-  `<FormatNumber options={{ minimumFractionDigits: 2 }}>{10000}</FormatNumber>`
-
-Result: `<span>10.000,00</span>` when using the `pt` (Portuguese) locale.
+```js
+<FormatNumber options={{minimumFractionDigits: 2}}>
+	{10000}
+</FormatNumber>
+// Which would render:
+// <span>10,000.00</span> when using the `en` (English) locale, or
+// <span>10.000,00</span> when using the `pt` (Portuguese) locale.
+```
 
 ## License
 
