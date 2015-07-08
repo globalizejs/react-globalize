@@ -19,6 +19,9 @@
     "cldr"
   ],
   "author": "Kris Borchers",
+  "contributors": [
+    "Rafael Xavier de Souza @rxaviers"
+  ],
   "homepage": "https://github.com/kborchers/react-globalize",
   "license": "MIT",
   "repository": "kborchers/react-globalize",
