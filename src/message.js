@@ -7,6 +7,7 @@ import "globalize/plural";
 function messageSetup(componentProps, instance, args) {
     var defaultMessage, path;
     var children = componentProps.children;
+    var scope = componentProps.scope;
 
     function extractFromFnComments(fn) {
         return fn.toString().replace(/(function \(\) \{\/\*|\*\/\})/g, "");
@@ -52,6 +53,12 @@ function messageSetup(componentProps, instance, args) {
         defaultMessage = getDefaultMessage(children);
         args[0] = sanitizePath(defaultMessage);
         path = [args[0]];
+    }
+
+    // Scope path.
+    if (scope) {
+        args[0] = scope + "/" + args[0];
+        path = scope.split("/").concat(path);
     }
 
     // Development mode only.
