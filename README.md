@@ -1,96 +1,117 @@
 # react-globalize
 
-Easy to use [React](http://facebook.github.io/react/) mixins that provide internationalization features to any React component via [Globalize](https://github.com/jquery/globalize). With a little initialization, you get instantly internationalized values in your components.
+[React](http://facebook.github.io/react/) components that provide internationalization features via [Globalize](https://github.com/jquery/globalize). With a little initialization, you get instantly internationalized values in your application.
 
 ## Install
-1. `npm install react-globalize`
+
+1. `npm install react-globalize --save`
 2. In your application just:
 	```JS
-	var ReactGlobalize = require('react-globalize');
-	var Globalize = require('globalize');
-	
+	var ReactGlobalize = require("react-globalize");
+	var Globalize = require("globalize");
+	var FormatCurrency = ReactGlobalize.FormatCurrency;
+
 	// Initialize Globalize and load your CLDR data
 	// See https://github.com/jquery/globalize for details on Globalize usage
-	
-	// In your component, this example just places the formatted value in a span
-	var CurrencyComponent = React.createClass({
-	    mixins: [ReactGlobalize.formatCurrency],
-	    ...
-	    render: function() {
-	        return (
-                    <span>{this.state.formattedValue}</span>
-                );
-            }
-	});
-	
-	// Then to use your currency component (with JSX)
+
+	Globalize.locale("en");
+
+	// Then, to use any ReactGlobalize component (with JSX)
 	React.render(
-	    <CurrencyComponent locale="en" currency="USD" value={150}/>
+	    <FormatCurrency currency="USD" value={150}/>
 	);
-	// Which would render <span>$150.00</span>
+	// Which would render for example:
+	// <span>$150.00</span> when using the `en` (English) locale, or
+	// <span>150,00 $</span> when using the `de` (German) locale, or
+	// <span>US$150,00</span> when using the `pt` (Portuguese) locale, or
+	// <span>US$ 150.00</span> when using the `zh` (Chinese) locale, or
+	// <span>US$ ١٥٠٫٠٠</span> when using the `ar` (Arabic) locale.
 	```
-	
-3. Further info about each mixin and its available props below
 
-## Mixins
-These mixins provide a simple way to display things like currency, dates, numbers and messages, formatted or translated to the current locale set by your application. Each mixin has a set of props, both required and optional, to be included in your component. The mixin then uses the values of those props, to add a `formattedValue` to your component's state. Below is a listing of each mixin, its props and a usage example.
+3. Further info about each component is available below.
 
-### formatCurrency
+## Components
+
+These components provide a simple way to display things like currency, dates, numbers and messages, formatted or translated to the current locale set by your application. Each component has a set of props, both required and optional. The component then uses the values of those props to properly format the passed values. Below is a listing of each component, its props and a usage example.
+
+### FormatCurrency
+
+It allows to format a currency. Your code can be completely independent of the locale conventions for which currency symbol to use, whether or not there's a space between the currency symbol and the value, the side where the currency symbol must be placed, or even decimal digits used by particular currencies. Currencies can be displayed using symbols (the default), accounting form, 3-letter code, or plural messages. See [currencyFormatter][] docs in Globalize for more information.
+
+[currencyFormatter]: https://github.com/jquery/globalize/blob/master/doc/api/currency/currency-formatter.md
+
 #### Props
-- **locale** - required
- - A string value representing the CLDR indicator for the desired locale used in formatting the amount. Most apps will pull this value from the component's state or the state of one of its parent compenents.
+
 - **currency** - required
- - A string value representing the currency type (USD, EUR, etc)
+ - A 3-letter string currency code as defined by ISO 4217 (e.g., USD, EUR, CNY, etc).
 - **value** - required
  - The numeric value to be formatted
 - **options**
- - An optional set of options to further format the value. See the [numberFormatter](https://github.com/jquery/globalize/blob/master/doc/api/number/number-formatter.md) docs in Globalize for more info on specific options
+ - An optional set of options to further format the value. See the [currencyFormatter][] docs in Globalize for more info on specific options
+- **locale** - optional
+ - A string value representing the locale (as defined by BCP47) used to override the default locale (preferred) set by your application using `Globalize.locale(locale)` when formatting the amount.
 
-#### Usage via an example FormatCurrency component
+#### Usage
+
 - Default format with USD in English
 
-  `<FormatCurrency locale="en" currency="USD" value={150} />`
+  `<FormatCurrency currency="USD" value={150} />`
 
-Result: this.state.formattedValue = $150.00
+Result: `<span>$150.00</span>` when using the `en` (English) locale.
 
 - Accounting format with EUR in Portuguese
 
-  `<FormatCurrency locale="pt-BR" currency="EUR" value={-150} options={{ style: "accounting" }} />`
+  `<FormatCurrency currency="EUR" value={-150} options={{ style: "accounting" }} />`
 
-Result: this.state.formattedValue = (€150,00)
+Result: `<span>(€150,00)</span>` when using the `pt` (Portuguese) locale.
 
-### formatDate
+### FormatDate
+
+It allows to convert dates and times from their internal representations to textual form in a language-independent manner. Your code can conveniently control the length of the formatted date, time, datetime. See [dateFormatter][] docs in Globalize for more information.
+
+[dateFormatter]: https://github.com/jquery/globalize/blob/master/doc/api/date/date-formatter.md
+
 #### Props
-- **locale** - required
- - A string value representing the CLDR indicator for the desired locale used in formatting the date. Most apps will pull this value from the component's state or the state of one of its parent compenents.
+
 - **value** - required
  - The date object to be formatted
-- **pattern** - required
- - An string or object which defines how to format the date. See the [dateFormatter](https://github.com/jquery/globalize/blob/master/doc/api/date/date-formatter.md) docs in Globalize for more info on supported patterns
+- **options**
+ - An optional set of options which defines how to format the date. See the [dateFormatter][] docs in Globalize for more info on supported patterns
+- **locale** - optional
+ - A string value representing the locale (as defined by BCP47) used to override the default locale (preferred) set by your application using `Globalize.locale(locale)` when formatting the amount.
 
-#### Usage via an example FormatDate component
-- Simple string skeleton in English
+#### Usage
 
-  `<FormatDate locale="en" value={new Date()} pattern="GyMMMd" />`
+- Simple string skeleton
 
-Result: this.state.formattedValue = Feb 27, 2015 AD
+  `<FormatDate value={new Date()} options={{skeleton: "GyMMMd"}} />`
 
-- Medium length date and time in Portuguese
+Result: `<span>Feb 27, 2015 AD</span>` when using the `en` (English) locale.
 
-  `<FormatDate locale="pt-BR" value={new Date()} pattern={{ datetime: 'medium' }} />`
+- Medium length date and time
 
-Result: this.state.formattedValue = 27 de fev de 2015 11:17:10
+  `<FormatDate value={new Date()} options={{ datetime: "medium" }} />`
 
-### formatMessage
+Result: `<span>27 de fev de 2015 11:17:10</span>` when using the `pt` (Portuguese) locale.
+
+### FormatMessage
+
+It allows for the creation of internationalized messages (as defined by the [ICU Message syntax][]), with optional arguments (variables/placeholders) allowing for simple replacement, gender and plural inflections. The arguments can occur in any order, which is necessary for translation into languages with different grammars. See [messageFormatter][] docs in Globalize for more information.
+
+[messageFormatter]: https://github.com/jquery/globalize/blob/master/doc/api/message/message-formatter.md
+[ICU Message syntax]: http://userguide.icu-project.org/formatparse/messages
+
 #### Props
-- **locale** - required
- - A string value representing the CLDR indicator for the desired locale used in formatting the message. Most apps will pull this value from the component's state or the state of one of its parent compenents.
+
 - **path** - required
  - String or array path to traverse a set of messages store in JSON format
-- **variables**
+- **variables** - optional
  - An array (where variables are represented as indeces) or object (for named variables) which contains values for variable replacement within a message.
+- **locale** - optional
+ - A string value representing the locale (as defined by BCP47) used to override the default locale (preferred) set by your application using `Globalize.locale(locale)` when formatting the amount.
 
-#### Usage via an example FormatMessage component
+#### Usage
+
 Below message JSON used in these examples:
   ```JS
   {
@@ -104,7 +125,7 @@ Below message JSON used in these examples:
         hey: "Hey, {first} {middle} {last}"
       }
     },
-    "pt-BR": {
+    "pt": {
       salutations: {
         hi: "Oi",
         bye: "Tchau"
@@ -118,45 +139,53 @@ Below message JSON used in these examples:
   ```
 - Simple salutation
 
-Hi in English: `<FormatMessage locale="en" path="salutations/hi" />`
+Hi: `<FormatMessage path="salutations/hi" />`
 
-Result: this.state.formattedValue = Hi
+Result:
 
-Hi in Portuguese: `<FormatMessage locale="pt-BR" path="salutations/hi" />`
+  `<span>Hi</span>` when using the `en` (English) locale, or
 
-Result: this.state.formattedValue = Oi
+  `<span>Oi</span>` when using the `pt` (Portuguese) locale.
 
 - Variable Replacement
 
-Array in English: `<FormatMessage locale="en" path="variables/hello" variables={["Wolfgang", "Amadeus", "Mozart"]} />`
+Array: `<FormatMessage path="variables/hello" variables={["Wolfgang", "Amadeus", "Mozart"]} />`
 
-Result: this.state.formattedValue = Hello, Wolfgang Amadeus Mozart
+Result: `<span>Hello, Wolfgang Amadeus Mozart</span>` when using the `en` (English) locale.
 
-Object in Portuguese: `<FormatMessage locale="pt-BR" path="variables/hey" variables={{first:"Wolfgang", middle:"Amadeus", last:"Mozart"}} />`
+Object in Portuguese: `<FormatMessage path="variables/hey" variables={{first:"Wolfgang", middle:"Amadeus", last:"Mozart"}} />`
 
-Result: this.state.formattedValue = Ei, Wolfgang Amadeus Mozart
+Result: `<span>Ei, Wolfgang Amadeus Mozart</span>` when using the `pt` (Portuguese) locale.
 
-### formatNumber
+### FormatNumber
+
+It allows to convert numbers into textual representations. Your code can be completely independent of the locale conventions for decimal points, thousands-separators, or even the particular decimal digits used, or whether the number format is even decimal. Though, it can still conveniently control various aspects of the formatted number like the minimum and maximum fraction digits, integer padding, rounding method, display as percentage, and others. See [numberFormatter][] docs in Globalize for more information.
+
+[numberFormatter]: https://github.com/jquery/globalize/blob/master/doc/api/number/number-formatter.md
+
 #### Props
-- **locale** - required
- - A string value representing the CLDR indicator for the desired locale used in formatting the date. Most apps will pull this value from the component's state or the state of one of its parent compenents.
+
 - **value** - required
  - The number to be formatted
 - **options**
- - An optional set of options to further format the value. See the [numberFormatter](https://github.com/jquery/globalize/blob/master/doc/api/number/number-formatter.md) docs in Globalize for more info on specific options
+ - An optional set of options to further format the value. See the [numberFormatter][] docs in Globalize for more info on specific options
+- **locale** - optional
+ - A string value representing the locale (as defined by BCP47) used to override the default locale (preferred) set by your application using `Globalize.locale(locale)` when formatting the amount.
 
-#### Usage via an example FormatNumber component
+#### Usage
+
 - Default format pi in English
 
   `<FormatNumber locale="en" value={Math.PI} />`
 
-Result: this.state.formattedValue = 3.142
+Result: `<span>3.142</span>` when using the `en` (English) locale.
 
 - Show at least 2 decimal places in Portuguese
 
-  `<FormatNumber locale="pt-BR" value={10000} options={{ minimumFractionDigits: 2 }} />`
+  `<FormatNumber value={10000} options={{ minimumFractionDigits: 2 }} />`
 
-Result: this.state.formattedValue = 10.000,00
+Result: `<span>10.000,00</span>` when using the `pt` (Portuguese) locale.
 
 ## License
+
 This project is distributed under the [MIT license](https://www.tldrlegal.com/l/mit).
