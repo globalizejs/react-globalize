@@ -1,18 +1,26 @@
-
 {
   "name": "react-globalize-example",
-  "description": "Examples demonstrating use of the components",
+  "description": "Examples demonstrating use of the react-globalize components",
   "main": "index.js",
-  "devDependencies": {
-    "browserify": "^6.3.3",
-    "reactify": "^0.17.1"
-  },
   "dependencies": {
-    "cldr-data": "~26.0.9",
-    "react": "~0.13.1",
-    "globalize": "~1.0.0-alpha.18"
+    "cldr-data": ">=25",
+    "react": "~0.13.0",
+    "globalize": "git://github.com/jquery/globalize#fix-398-runtime",
+    "react-globalize": "git://github.com/rxaviers/react-globalize#b0.3.0"
+  },
+  "devDependencies": {
+    "babel": "^5.1.10",
+    "babel-core": "^4.7.8",
+    "babel-loader": "^5.0.0",
+    "html-webpack-plugin": "^1.1.0",
+    "nopt": "^3.0.3",
+    "react-globalize-webpack-plugin": "git://github.com/rxaviers/react-globalize-webpack-plugin#b0.0.1",
+    "react-hot-loader": "^1.2.3",
+    "webpack": "^1.9.0",
+    "webpack-dev-server": "^1.9.0"
   },
   "scripts": {
-    "build": "cp -f ../index.js react-globalize.js && browserify --debug --transform reactify index.js > app.js"
+    "start": "./node_modules/.bin/webpack-dev-server --config webpack-config.js --hot --progress --colors --inline --content-base ./tmp",
+    "build": "./node_modules/.bin/webpack --production --config webpack-config.js"
   }
 }
