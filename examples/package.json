@@ -5,7 +5,7 @@
   "dependencies": {
     "cldr-data": ">=25",
     "react": "~0.13.0",
-    "globalize": "git://github.com/jquery/globalize#fix-398-runtime",
+    "globalize": "git://github.com/jquery/globalize#runtime-temp-build",
     "react-globalize": "git://github.com/rxaviers/react-globalize#b0.3.0"
   },
   "devDependencies": {
