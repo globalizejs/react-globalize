@@ -71,6 +71,83 @@ function messageSetup(componentProps, instance, args) {
 
 }
 
+function replaceElements(componentProps, formatted) {
+    var elements = componentProps.elements;
+
+    function _replaceElements(string, elements) {
+        if (typeof string !== "string") {
+            throw new Error("missing or invalid string `" + string + "` (" + typeof string + ")");
+        }
+        if (typeof elements !== "object") {
+            throw new Error("missing or invalid elements `" + elements + "` (" + typeof elements + ")");
+        }
+
+        // Given [x, y, z], it returns [x, element, y, element, z].
+        function spreadElementsInBetweenItems(array, element) {
+            var getElement = typeof element === "function" ? element : function() {
+                return element;
+            };
+            return array.slice(1).reduce(function(ret, item, i) {
+                ret.push(getElement(i), item);
+                return ret;
+            }, [array[0]]);
+        }
+
+        function splice(sourceArray, start, deleteCount, itemsArray) {
+            [].splice.apply(sourceArray, [start, deleteCount].concat(itemsArray));
+        }
+
+        return Object.keys(elements).reduce(function(ret, key) {
+            var element = elements[key];
+
+            ret.forEach(function(string, i) {
+                var aux, contents, regexp, regexp2;
+
+                // Insert array into the correct ret position.
+                function replaceRetItem(array) {
+                    splice(ret, i, 1, array);
+                }
+
+                if (typeof string !== "string") {
+                    return; // continue;
+                }
+
+                // Empty tags, e.g., `[foo/]`.
+                aux = string.split("[" + key + "/]");
+                if (aux.length > 1) {
+                    aux = spreadElementsInBetweenItems(aux, element);
+                    replaceRetItem(aux);
+                    return; // continue;
+                }
+
+                // Start-end tags, e.g., `[foo]content[/foo]`.
+                regexp = new RegExp("\\[" + key + "\\][\\s\\S]*?\\[\\/" + key + "\\]", "g");
+                regexp2 = new RegExp("\\[" + key + "\\]([\\s\\S]*?)\\[\\/" + key + "\\]");
+                aux = string.split(regexp);
+                if (aux.length > 1) {
+                    contents = string.match(regexp).map(function(content) {
+                        return content.replace(regexp2, "$1");
+                    });
+                    aux = spreadElementsInBetweenItems(aux, function(i) {
+                        return React.cloneElement(element, {}, contents[i]);
+                    });
+                    replaceRetItem(aux);
+                }
+            });
+
+            return ret;
+        }, [string]);
+    }
+
+
+    // Elements replacement.
+    if (elements) {
+        formatted = React.DOM.span.apply(React.DOM.span, [{}].concat(_replaceElements(formatted, elements)));
+    }
+
+    return formatted;
+}
+
 function sanitizePath(pathString) {
     return pathString.trim().replace(/\{/g, "(").replace(/\}/g, ")").replace(/\//g, "|").replace(/\n/g, " ").replace(/ +/g, " ").replace(/"/g, "'");
 }
@@ -93,5 +170,8 @@ Globalize.prototype.messageFormatter = function(pathOrMessage) {
 export default React.createClass(generator("formatMessage", ["path", "variables"], {
     beforeFormat: function() {
         messageSetup(this.props, this.instance, this.args);
+    },
+    afterFormat: function(formattedValue) {
+        return replaceElements(this.props, formattedValue);
     }
 }));
