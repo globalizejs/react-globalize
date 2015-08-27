@@ -3,6 +3,13 @@
   "version": "0.2.0",
   "description": "Bringing the i18n functionality of Globalize, backed by CLDR, to React",
   "main": "dist/index.js",
+  "files": [
+    "dist/",
+    "examples/",
+    "LICENSE",
+    "README.md",
+    "src/"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
