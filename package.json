@@ -38,7 +38,7 @@
     "react": ">= 0.13.0 < 1.0.0"
   },
   "peerDependencies": {
-    "globalize": ">= 1.0.0",
+    "globalize": ">= 1.0.0 || 1.1.0-alpha - 1.1.x",
     "react": ">= 0.13.0 < 1.0.0"
   },
   "devDependencies": {
