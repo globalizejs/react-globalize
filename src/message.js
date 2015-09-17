@@ -8,6 +8,7 @@ function messageSetup(componentProps, instance, args) {
     var defaultMessage, path;
     var children = componentProps.children;
     var scope = componentProps.scope;
+    var pathProperty = componentProps.path;
 
     function extractFromFnComments(fn) {
         return fn.toString().replace(/(function \(\) \{\/\*|\*\/\})/g, "");
@@ -46,9 +47,9 @@ function messageSetup(componentProps, instance, args) {
         Globalize.loadMessages(data);
     }
 
-    // Set path.
-    if (args[0]) {
-        path = args[0].split("/");
+    // Set path - path as props supercedes default value
+    if (pathProperty) {
+        path = pathProperty.split("/");
     } else {
         defaultMessage = getDefaultMessage(children);
         args[0] = sanitizePath(defaultMessage);
@@ -158,12 +159,24 @@ Globalize.messageFormatter =
 Globalize.prototype.messageFormatter = function(pathOrMessage) {
     var aux = {};
     var sanitizedPath = sanitizePath(pathOrMessage);
-    if (this.cldr && this.cldr.get(["globalize-messages/{bundle}", sanitizedPath]) === undefined) {
-        aux[this.cldr.attributes.bundle] = {};
-        aux[this.cldr.attributes.bundle][sanitizedPath] = pathOrMessage;
-        Globalize.loadMessages(aux);
+
+    /*
+     * want to distinguish between default value and path value - just checking
+     * for sanitizedPath won't be enough, because sanitizedPath !== pathOrMessage
+     * for strings like "salutations/hi"
+     */
+    var sanitizedPathExists = this.cldr &&
+      this.cldr.get(["globalize-messages/{bundle}", sanitizedPath]) !== undefined;
+    var pathExists = this.cldr &&
+      this.cldr.get(["globalize-messages/{bundle}", pathOrMessage]) !== undefined;
+
+    if (!sanitizedPathExists && !pathExists) {
+      aux[this.cldr.attributes.bundle] = {};
+      aux[this.cldr.attributes.bundle][sanitizedPath] = pathOrMessage;
+      Globalize.loadMessages(aux);
     }
-    arguments[0] = sanitizedPath;
+
+    arguments[0] = sanitizedPathExists ? sanitizedPath : pathOrMessage;
     return messageFormatterSuper.apply(this, arguments);
 };
 
