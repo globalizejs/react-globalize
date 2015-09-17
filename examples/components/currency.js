@@ -42,6 +42,9 @@ module.exports = React.createClass({
                 EUR, 150, style: "code" - <FormatCurrency locale={this.state.locale} currency="EUR" options={{ style: "code" }}>{150}</FormatCurrency>
                 <br/>
                 EUR, 1.491, round: "ceil" - <FormatCurrency locale={this.state.locale} currency="EUR" options={{ round: "ceil" }}>{1.491}</FormatCurrency>
+                <br/>
+                EUR, 150, style: "code", with CSS class -
+                <FormatCurrency className='firstClass' locale={this.state.locale} currency="EUR" options={{ style: "code" }}>{150}</FormatCurrency>
             </div>
         );
     }

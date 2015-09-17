@@ -33,7 +33,7 @@ function generator(fn, argArray, options) {
             }
 
             beforeFormat.call(this);
-            return React.DOM.span(null, afterFormat.call(this, this.format()));
+            return React.DOM.span(componentProps, afterFormat.call(this, this.format()));
         }
     }
 };
