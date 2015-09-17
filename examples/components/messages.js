@@ -27,6 +27,12 @@ module.exports = React.createClass({
                 hi - <FormatMessage locale={this.state.locale} path="salutations/hi" />
                 <br/>
                 bye - <FormatMessage locale={this.state.locale} path="salutations/bye" />
+                <h3>Simple default message</h3>
+                <FormatMessage locale={this.state.locale}>Hi</FormatMessage>
+                <br/>
+                <FormatMessage locale={this.state.locale}>Bye</FormatMessage>
+                <br/>
+                <FormatMessage locale={this.state.locale}>Hi/Bye</FormatMessage>
                 <h3>Variable Replacement</h3>
                 ["Wolfgang", "Amadeus", "Mozart"] - <FormatMessage locale={this.state.locale} path="variables/hello" variables={["Wolfgang", "Amadeus", "Mozart"]} />
                 <br/>
