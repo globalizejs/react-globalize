@@ -49,6 +49,7 @@ function messageSetup(componentProps, instance, args) {
 
     // Set path - path as props supercedes default value
     if (pathProperty) {
+        args[0] = pathProperty;
         path = pathProperty.split("/");
     } else {
         defaultMessage = getDefaultMessage(children);
