@@ -23,25 +23,25 @@ module.exports = React.createClass({
                     </select>
                 </div>
                 <br/>
-                USD, 150, locale default - <FormatCurrency locale={this.state.locale} currency="USD" value={150} />
+                USD, 150, locale default - <FormatCurrency locale={this.state.locale} currency="USD">{150}</FormatCurrency>
                 <br/>
-                USD, -150, style: "accounting" - <FormatCurrency locale={this.state.locale} currency="USD" value={-150} options={{ style: "accounting" }} />
+                USD, -150, style: "accounting" - <FormatCurrency locale={this.state.locale} currency="USD" options={{ style: "accounting" }}>{-150}</FormatCurrency>
                 <br/>
-                USD, 150, style: "name" - <FormatCurrency locale={this.state.locale} currency="USD" value={150} options={{ style: "name" }} />
+                USD, 150, style: "name" - <FormatCurrency locale={this.state.locale} currency="USD" options={{ style: "name" }}>{150}</FormatCurrency>
                 <br/>
-                USD, 150, style: "code" - <FormatCurrency locale={this.state.locale} currency="USD" value={150} options={{ style: "code" }} />
+                USD, 150, style: "code" - <FormatCurrency locale={this.state.locale} currency="USD" options={{ style: "code" }}>{150}</FormatCurrency>
                 <br/>
-                USD, 1.491, round: "ceil" - <FormatCurrency locale={this.state.locale} currency="USD" value={1.491} options={{ round: "ceil" }} />
+                USD, 1.491, round: "ceil" - <FormatCurrency locale={this.state.locale} currency="USD" options={{ round: "ceil" }}>{1.491}</FormatCurrency>
                 <br/>
-                EUR, 150, locale default - <FormatCurrency locale={this.state.locale} currency="EUR" value={150} />
+                EUR, 150, locale default - <FormatCurrency locale={this.state.locale} currency="EUR">{150}</FormatCurrency>
                 <br/>
-                EUR, -150, style: "accounting" - <FormatCurrency locale={this.state.locale} currency="EUR" value={-150} options={{ style: "accounting" }} />
+                EUR, -150, style: "accounting" - <FormatCurrency locale={this.state.locale} currency="EUR" options={{ style: "accounting" }}>{-150}</FormatCurrency>
                 <br/>
-                EUR, 150, style: "name" - <FormatCurrency locale={this.state.locale} currency="EUR" value={150} options={{ style: "name" }} />
+                EUR, 150, style: "name" - <FormatCurrency locale={this.state.locale} currency="EUR" options={{ style: "name" }}>{150}</FormatCurrency>
                 <br/>
-                EUR, 150, style: "code" - <FormatCurrency locale={this.state.locale} currency="EUR" value={150} options={{ style: "code" }} />
+                EUR, 150, style: "code" - <FormatCurrency locale={this.state.locale} currency="EUR" options={{ style: "code" }}>{150}</FormatCurrency>
                 <br/>
-                EUR, 1.491, round: "ceil" - <FormatCurrency locale={this.state.locale} currency="EUR" value={1.491} options={{ round: "ceil" }} />
+                EUR, 1.491, round: "ceil" - <FormatCurrency locale={this.state.locale} currency="EUR" options={{ round: "ceil" }}>{1.491}</FormatCurrency>
             </div>
         );
     }

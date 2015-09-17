@@ -39,6 +39,10 @@ var messages = {
         ]
     },
     "pt-BR": {
+        // default message examples
+        "Hi": "Oi",
+        "Bye": "Tchau",
+        "Hi|Bye": "Oi/Tchau",
         salutations: {
             hi: "Oi",
             bye: "Tchau"
