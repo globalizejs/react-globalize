@@ -13,6 +13,6 @@
     "globalize": "~1.0.0-alpha.18"
   },
   "scripts": {
-    "build": "cp -f ../index.js react-globalize.js && browserify --debug --transform reactify index.js > app.js"
+    "build": "mkdir -p react-globalize && cp ../dist/*.js react-globalize/ && browserify --debug --transform reactify index.js > app.js"
   }
 }

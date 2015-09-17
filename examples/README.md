@@ -5,6 +5,7 @@ Install
 -------
 These instructions assume you have node and npm installed. For help, see the [npm docs](https://docs.npmjs.com/getting-started/installing-node)
 
-1. Run `npm install`
+1. Build react-globalize (`cp .. && grunt`)
+1. Run `npm install` in this directory
 2. Run `npm run-script build` to generate the built JS file
 3. Open browser and navigate to `react-globalize/examples/index.html`
