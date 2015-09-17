@@ -87,8 +87,6 @@ The date object to be formatted. Required.
 
 #### Props
 
-- **value** - required
- - The date object to be formatted
 - **options**
  - An optional set of options which defines how to format the date. See the [dateFormatter][] docs in Globalize for more info on supported patterns
 - **locale** - optional
@@ -214,8 +212,6 @@ The number to be formatted. Required.
 
 #### Props
 
-- **value** - required
- - The number to be formatted
 - **options**
  - An optional set of options to further format the value. See the [numberFormatter][] docs in Globalize for more info on specific options
 - **locale** - optional
