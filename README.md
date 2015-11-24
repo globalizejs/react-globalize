@@ -185,7 +185,7 @@ Element Replacement.
 ```js
 <FormatMessage
   elements={{
-    reactGlobalizeLink: <a href='https://github.com/kborchers/react-globalize'></a>
+    reactGlobalizeLink: <a href='https://github.com/jquery-support/react-globalize'></a>
   }}
 >
   For more information, see [reactGlobalize]React Globalize[/reactGlobalize]
@@ -193,7 +193,7 @@ Element Replacement.
 // Which would render:
 // <span>
 //   For more information, see 
-//   <a href="https://github.com/kborchers/react-globalize">React Globalize</a>
+//   <a href="https://github.com/jquery-support/react-globalize">React Globalize</a>
 // </span>
 // when using the default message, in this case `en` (English).
 ```

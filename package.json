@@ -25,14 +25,11 @@
     "format",
     "cldr"
   ],
-  "author": "Kris Borchers",
-  "contributors": [
-    "Rafael Xavier de Souza @rxaviers"
-  ],
-  "homepage": "https://github.com/kborchers/react-globalize",
+  "author": "jQuery Foundation and other contributors",
+  "homepage": "https://github.com/jquery-support/react-globalize",
   "license": "MIT",
-  "repository": "kborchers/react-globalize",
-  "bugs": "https://github.com/kborchers/react-globalize/issues",
+  "repository": "jquery-support/react-globalize",
+  "bugs": "https://github.com/jquery-support/react-globalize/issues",
   "peerDependencies": {
     "globalize": ">= 1.0.0 || 1.1.0-alpha - 1.1.x",
     "react": ">= 0.13.0 < 1.0.0"
