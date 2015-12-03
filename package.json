@@ -11,7 +11,7 @@
     "src/"
   ],
   "scripts": {
-    "test": "eslint src"
+    "test": "eslint Gruntfile.js src"
   },
   "keywords": [
     "react",

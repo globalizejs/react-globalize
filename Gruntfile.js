@@ -20,14 +20,12 @@ module.exports = function(grunt) {
                 cwd: "src",
                 src : ["**.js"],
                 dest: "dist/"
-            
             }
         }
     });
 
     grunt.registerTask("esperanto-cjs-cleanup", function() {
-        var done = this.async();
-        var srcFiles = grunt.file.expand("dist/**.js").map(function(filepath) {
+        grunt.file.expand("dist/**.js").map(function(filepath) {
             var newContent;
             var content = grunt.file.read(filepath);
 
