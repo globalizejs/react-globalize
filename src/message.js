@@ -10,15 +10,9 @@ function messageSetup(componentProps, instance, args) {
     var scope = componentProps.scope;
     var pathProperty = componentProps.path;
 
-    function extractFromFnComments(fn) {
-        return fn.toString().replace(/(function \(\) \{\/\*|\*\/\})/g, "");
-    }
-
     function getDefaultMessage(children) {
         if (typeof children === "string") {
             return children;
-        } else if (typeof children === "function") {
-            return extractFromFnComments(children);
         } else {
             throw new Error("Invalid default message type `" + typeof children + "`");
         }
