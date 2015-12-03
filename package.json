@@ -36,6 +36,8 @@
   },
   "devDependencies": {
     "babel-eslint": "^4.1.6",
+    "cldr-data": ">=25",
+    "cldrjs": "^0.4.3",
     "eslint": "^1.10.3",
     "eslint-config-defaults": "^7.1.1",
     "eslint-plugin-react": "^3.11.2",
