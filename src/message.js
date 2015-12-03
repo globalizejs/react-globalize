@@ -174,14 +174,14 @@ Globalize.prototype.messageFormatter = function(pathOrMessage) {
      * for strings like "salutations/hi"
      */
     var sanitizedPathExists = this.cldr &&
-      this.cldr.get(["globalize-messages/{bundle}", sanitizedPath]) !== undefined;
+        this.cldr.get(["globalize-messages/{bundle}", sanitizedPath]) !== undefined;
     var pathExists = this.cldr &&
-      this.cldr.get(["globalize-messages/{bundle}", pathOrMessage]) !== undefined;
+        this.cldr.get(["globalize-messages/{bundle}", pathOrMessage]) !== undefined;
 
     if (!sanitizedPathExists && !pathExists) {
-      aux[this.cldr.attributes.bundle] = {};
-      aux[this.cldr.attributes.bundle][sanitizedPath] = pathOrMessage;
-      Globalize.loadMessages(aux);
+        aux[this.cldr.attributes.bundle] = {};
+        aux[this.cldr.attributes.bundle][sanitizedPath] = pathOrMessage;
+        Globalize.loadMessages(aux);
     }
 
     arguments[0] = sanitizedPathExists ? sanitizedPath : pathOrMessage;

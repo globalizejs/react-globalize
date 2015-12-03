@@ -11,7 +11,7 @@
     "src/"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint Gruntfile.js src"
   },
   "keywords": [
     "react",
@@ -35,6 +35,10 @@
     "react": ">= 0.13.0 < 1.0.0"
   },
   "devDependencies": {
+    "babel-eslint": "^4.1.6",
+    "eslint": "^1.10.3",
+    "eslint-config-defaults": "^7.1.1",
+    "eslint-plugin-react": "^3.11.2",
     "grunt": "^0.4.5",
     "grunt-esperanto": "^0.4.0"
   }
