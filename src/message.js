@@ -162,16 +162,22 @@ Globalize.prototype.messageFormatter = function(pathOrMessage) {
     var aux = {};
     var sanitizedPath = sanitizePath(pathOrMessage);
 
-    /*
-     * want to distinguish between default value and path value - just checking
-     * for sanitizedPath won't be enough, because sanitizedPath !== pathOrMessage
-     * for strings like "salutations/hi"
-     */
-    var sanitizedPathExists = this.cldr &&
-        this.cldr.get(["globalize-messages/{bundle}", sanitizedPath]) !== undefined;
-    var pathExists = this.cldr &&
-        this.cldr.get(["globalize-messages/{bundle}", pathOrMessage]) !== undefined;
+    // Globalize runtime
+    if (!this.cldr) {
+        // On runtime, the only way for deciding between using sanitizedPath or
+        // pathOrMessage as path is by checking which formatter exists.
+        arguments[0] = sanitizedPath;
+        aux = messageFormatterSuper.apply(this, arguments);
+        arguments[0] = pathOrMessage;
+        return aux || messageFormatterSuper.apply(this, arguments);
+    }
 
+    var sanitizedPathExists = this.cldr.get(["globalize-messages/{bundle}", sanitizedPath]) !== undefined;
+    var pathExists = this.cldr.get(["globalize-messages/{bundle}", pathOrMessage]) !== undefined;
+
+    // Want to distinguish between default message and path value - just checking
+    // for sanitizedPath won't be enough, because sanitizedPath !== pathOrMessage
+    // for paths like "salutations/hi".
     if (!sanitizedPathExists && !pathExists) {
         aux[this.cldr.attributes.bundle] = {};
         aux[this.cldr.attributes.bundle][sanitizedPath] = pathOrMessage;
