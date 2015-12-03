@@ -47,11 +47,18 @@ function messageSetup(componentProps, instance, args) {
         Globalize.loadMessages(data);
     }
 
-    // Set path - path as props supercedes default value
+    // Set path - path as props supercedes default value.
     if (pathProperty) {
+        // Override generator assumption. The generator assumes the args[0]
+        // (path) and props.children to be mutually exclusive, but this isn't
+        // true here for messages. Because, it's possible to use props.path (for
+        // path) and props.children for defaultMessage, which are two different
+        // variables.
         args[0] = pathProperty;
         path = pathProperty.split("/");
     } else {
+        // Although the generator had already set args[0] (path) as
+        // props.children, here its type is checked and its value is sanitized.
         defaultMessage = getDefaultMessage(children);
         args[0] = sanitizePath(defaultMessage);
         path = [args[0]];
