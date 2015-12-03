@@ -11,14 +11,13 @@ function generator(fn, argArray, options) {
     var beforeFormat = options.beforeFormat || function() {};
     var afterFormat = options.afterFormat || function(formattedValue) {
         return formattedValue;
-    }
+    };
     return {
         displayName: Fn,
         format: function() {
             return this.instance[fn].apply(this.instance, this.args);
         },
         render: function() {
-            var formatted;
             var componentProps = this.props;
             this.instance = Globalize;
             this.args = argArray.map(function(element) {
@@ -29,13 +28,13 @@ function generator(fn, argArray, options) {
             this.args[0] = this.props.children;
 
             if (this.props["locale"]) {
-              this.instance = Globalize(this.props["locale"]);
+                this.instance = Globalize(this.props["locale"]);
             }
 
             beforeFormat.call(this);
             return React.DOM.span(componentProps, afterFormat.call(this, this.format()));
         }
-    }
-};
+    };
+}
 
 export default generator;
