@@ -182,6 +182,7 @@ Globalize.prototype.messageFormatter = function(pathOrMessage) {
         aux[this.cldr.attributes.bundle] = {};
         aux[this.cldr.attributes.bundle][sanitizedPath] = pathOrMessage;
         Globalize.loadMessages(aux);
+        sanitizedPathExists = true;
     }
 
     arguments[0] = sanitizedPathExists ? sanitizedPath : pathOrMessage;
