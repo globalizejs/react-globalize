@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-esperanto");
+    grunt.loadNpmTasks("grunt-mocha-test");
+    grunt.loadNpmTasks("grunt-eslint");
 
     grunt.initConfig({
         esperanto: {
@@ -21,6 +23,18 @@ module.exports = function(grunt) {
                 src : ["**.js"],
                 dest: "dist/"
             }
+        },
+        mochaTest: {
+            test: {
+                options: {
+                    colors: true,
+                    require: ["babel-register", "./test/test_setup.js"]
+                },
+                src: ["test/**/*.js"]
+            }
+        },
+        eslint: {
+            target: ["Gruntfile.js", "test", "src"]
         }
     });
 
@@ -38,5 +52,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask("build", ["esperanto", "esperanto-cjs-cleanup"]);
+    grunt.registerTask("lint", ["eslint"]);
+    grunt.registerTask("test", ["lint", "build", "mochaTest"]);
     grunt.registerTask("default", ["build"]);
 };

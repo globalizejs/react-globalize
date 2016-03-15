@@ -2,6 +2,7 @@
   "env": {
     "browser": true,
     "es6": true,
+    "mocha": true,
     "node": true
   },
   "extends": [
@@ -15,6 +16,7 @@
     "indent": 2,
     "no-console": 1,
     "no-trailing-spaces": 2,
+    "no-unused-vars": [0, {"ignore": ["React"]}],
     "quotes": [2, "double"],
     "semi": 1
   }
