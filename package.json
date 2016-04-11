@@ -30,7 +30,7 @@
   "bugs": "https://github.com/jquery-support/react-globalize/issues",
   "peerDependencies": {
     "globalize": ">= 1.0.0 || 1.1.0-alpha - 1.1.x",
-    "react": ">= 0.13.0 < 1.0.0"
+    "react": "^0.13 || ^0.14 || ^15.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.6",
@@ -40,7 +40,7 @@
     "chai": "^3.5.0",
     "cldr-data": ">=25",
     "cldrjs": "^0.4.3",
-    "enzyme": "^1.2.0",
+    "enzyme": "2.2.0",
     "eslint": "^1.10.3",
     "eslint-config-defaults": "^7.1.1",
     "eslint-plugin-react": "^3.11.2",
@@ -50,8 +50,8 @@
     "grunt-esperanto": "^0.4.0",
     "grunt-mocha-test": "^0.12.7",
     "mocha": "^2.4.5",
-    "react": ">= 0.13.0 < 1.0.0",
-    "react-addons-test-utils": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react": "15.0.1",
+    "react-addons-test-utils": "15.0.1",
+    "react-dom": "15.0.1"
   }
 }
