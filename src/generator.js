@@ -18,21 +18,21 @@ function generator(fn, argArray, options) {
             return this.instance[fn].apply(this.instance, this.args);
         },
         render: function() {
-            var componentProps = this.props;
+            var props = this.props;
             this.instance = Globalize;
             this.args = argArray.map(function(element) {
-                return componentProps[element];
+                return props[element];
             });
 
             // Get value from this.props.children.
-            this.args[0] = this.props.children;
+            this.args[0] = props.children;
 
-            if (this.props["locale"]) {
-                this.instance = Globalize(this.props["locale"]);
+            if (props.locale) {
+                this.instance = Globalize(props.locale);
             }
 
             beforeFormat.call(this);
-            return React.DOM.span(componentProps, afterFormat.call(this, this.format()));
+            return React.DOM.span(props, afterFormat.call(this, this.format()));
         }
     };
 }
