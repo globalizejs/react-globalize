@@ -1,7 +1,7 @@
 import React from "react";
 import Globalize from "globalize";
 
-const commonProps = ["elements", "locale"];
+var commonProps = ["elements", "locale"];
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -33,7 +33,7 @@ function generator(fn, argArray, options) {
             });
 
             // otherProps = this.props - argArray - commonProps.
-            const otherProps = Object.keys(props).filter(omit(argArray)).filter(omit(commonProps)).reduce(function(memo, propKey) {
+            var otherProps = Object.keys(props).filter(omit(argArray)).filter(omit(commonProps)).reduce(function(memo, propKey) {
                 memo[propKey] = props[propKey];
                 return memo;
             }, {});
