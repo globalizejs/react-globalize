@@ -29,7 +29,7 @@
   "repository": "jquery-support/react-globalize",
   "bugs": "https://github.com/jquery-support/react-globalize/issues",
   "peerDependencies": {
-    "globalize": ">= 1.0.0 || >=1.2.0-alpha <2.0.0",
+    "globalize": ">= 1.0.0",
     "react": "^0.13 || ^0.14 || ^15.0.0"
   },
   "devDependencies": {
