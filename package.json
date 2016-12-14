@@ -10,7 +10,9 @@
     "README.md",
     "src/"
   ],
-  "scripts": {},
+  "scripts": {
+    "test": "grunt test"
+  },
   "keywords": [
     "react",
     "globalize",

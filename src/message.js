@@ -4,7 +4,7 @@ import generator from "./generator";
 import "globalize/message";
 import "globalize/plural";
 
-function messageSetup(componentProps, instance, args) {
+function messageSetup(componentProps, globalize, args) {
     var defaultMessage, path;
     var children = componentProps.children;
     var scope = componentProps.scope;
@@ -19,7 +19,7 @@ function messageSetup(componentProps, instance, args) {
     }
 
     function getMessage() {
-        return instance.cldr.get(["globalize-messages/{bundle}"].concat(path));
+        return globalize.cldr.get(["globalize-messages/{bundle}"].concat(path));
     }
 
     function setMessage(message) {
@@ -37,7 +37,7 @@ function messageSetup(componentProps, instance, args) {
             }
             node[path[i]] = value;
         }
-        set(data, [instance.cldr.attributes.bundle].concat(path), message);
+        set(data, [globalize.cldr.attributes.bundle].concat(path), message);
         Globalize.loadMessages(data);
     }
 
@@ -65,7 +65,7 @@ function messageSetup(componentProps, instance, args) {
     }
 
     // Development mode only.
-    if (instance.cldr) {
+    if (globalize.cldr) {
         if (!getMessage()) {
             defaultMessage = defaultMessage || getDefaultMessage(children);
             setMessage(defaultMessage);
@@ -189,11 +189,11 @@ Globalize.prototype.messageFormatter = function(pathOrMessage) {
     return messageFormatterSuper.apply(this, arguments);
 };
 
-export default React.createClass(generator("formatMessage", ["path", "variables"], {
+export default generator("formatMessage", ["path", "variables"], {
     beforeFormat: function() {
-        messageSetup(this.props, this.instance, this.args);
+        messageSetup(this.props, this.globalize, this.globalizePropValues);
     },
     afterFormat: function(formattedValue) {
         return replaceElements(this.props, formattedValue);
     }
-}));
+});

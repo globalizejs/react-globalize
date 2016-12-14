@@ -17,4 +17,11 @@ describe("Any Component", () => {
         const wrapper = shallow(<FormatCurrency locale="de" currency="EUR">{150}</FormatCurrency>);
         expect(wrapper.text()).to.equal("150,00 €");
     });
+
+    it("updates when props change", () => {
+        const wrapper = shallow(<FormatMessage className="a-class-name">Hello</FormatMessage>);
+        expect(wrapper.props().className).to.equal("a-class-name");
+        wrapper.setProps({ className: "b-class-name" });
+        expect(wrapper.props().className).to.equal("b-class-name");
+    });
 });
