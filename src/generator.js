@@ -1,7 +1,7 @@
 import React from "react";
 import Globalize from "globalize";
 
-var commonProps = ["elements", "locale"];
+var commonPropNames = ["elements", "locale"];
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -13,42 +13,43 @@ function omit(set) {
     };
 }
 
-function generator(fn, argArray, options) {
-    var Fn = capitalizeFirstLetter(fn);
+function generator(fn, localPropNames, options) {
     options = options || {};
+    var Fn = capitalizeFirstLetter(fn);
     var beforeFormat = options.beforeFormat || function() {};
     var afterFormat = options.afterFormat || function(formattedValue) {
         return formattedValue;
     };
-    return {
-        displayName: Fn,
-        format: function() {
-            return this.instance[fn].apply(this.instance, this.args);
-        },
-        render: function() {
-            var props = this.props;
-            this.instance = Globalize;
-            this.args = argArray.map(function(element) {
-                return props[element];
-            });
+    var globalizePropNames = commonPropNames.concat(localPropNames);
 
-            // otherProps = this.props - argArray - commonProps.
-            var otherProps = Object.keys(props).filter(omit(argArray)).filter(omit(commonProps)).reduce(function(memo, propKey) {
+    return React.createClass({
+        displayName: Fn,
+        componentWillMount: function() {
+            this.setup(this.props);
+        },
+        componentWillReceiveProps: function(nextProps) {
+            this.setup(nextProps);
+        },
+        setup: function(props) {
+            this.globalize = props.locale ? Globalize(props.locale) : Globalize;
+            this.domProps = Object.keys(props).filter(omit(globalizePropNames)).reduce(function(memo, propKey) {
                 memo[propKey] = props[propKey];
                 return memo;
             }, {});
 
-            // Get value from this.props.children.
-            this.args[0] = props.children;
-
-            if (props.locale) {
-                this.instance = Globalize(props.locale);
-            }
+            this.globalizePropValues = localPropNames.map(function(element) {
+                return props[element];
+            });
+            this.globalizePropValues[0] = props.children;
 
             beforeFormat.call(this);
-            return React.DOM.span(otherProps, afterFormat.call(this, this.format()));
+            const formattedValue = this.globalize[fn].apply(this.globalize, this.globalizePropValues);
+            this.value = afterFormat.call(this, formattedValue);
+        },
+        render: function() {
+            return React.DOM.span(this.domProps, this.value);
         }
-    };
+    });
 }
 
 export default generator;
