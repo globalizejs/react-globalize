@@ -43,7 +43,7 @@ function generator(fn, localPropNames, options) {
             this.globalizePropValues[0] = props.children;
 
             beforeFormat.call(this);
-            const formattedValue = this.globalize[fn].apply(this.globalize, this.globalizePropValues);
+            var formattedValue = this.globalize[fn].apply(this.globalize, this.globalizePropValues);
             this.value = afterFormat.call(this, formattedValue);
         },
         render: function() {
