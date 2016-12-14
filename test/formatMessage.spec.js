@@ -26,34 +26,46 @@ Globalize.loadMessages({
     }
 });
 
-describe("formatMessage Component", () => {
-    it("renders as a <span>", () => {
-        const wrapper = shallow(<FormatMessage path="salutations/hi" />);
-        expect(wrapper.type()).to.equal("span");
-    });
+[ "development", "production" ].forEach((env) => {
+    describe(`formatMessage Component (${env})`, () => {
+        var originalEnv = process.env.NODE_ENV;
 
-    it("uses default message and prints 'Hi'", () => {
-        const wrapper = shallow(<FormatMessage>Hi</FormatMessage>);
-        expect(wrapper.text()).to.equal("Hi");
-    });
+        before(() => {
+            process.env.NODE_ENV = env;
+        });
 
-    it("resolves path and prints 'Hi'", () => {
-        const wrapper = shallow(<FormatMessage path="salutations/hi" />);
-        expect(wrapper.text()).to.equal("Hi");
-    });
+        after(() => {
+            process.env.NODE_ENV = originalEnv;
+        });
 
-    it("properly replaces variables", () => {
-        const wrapper = shallow(<FormatMessage path="variables/hello" variables={["Wolfgang", "Amadeus", "Mozart"]} />);
-        expect(wrapper.text()).to.equal("Hello, Wolfgang Amadeus Mozart");
-    });
+        it("renders as a <span>", () => {
+            const wrapper = shallow(<FormatMessage path="salutations/hi" />);
+            expect(wrapper.type()).to.equal("span");
+        });
 
-    it("uses proper gender inflection", () => {
-        const wrapper = shallow(<FormatMessage path="party" variables={{guest:"Mozart", guestGender:"male", host:"Beethoven", hostGender:"other"}} />);
-        expect(wrapper.text()).to.equal("Beethoven invites Mozart to their party");
-    });
+        it("uses default message and prints 'Hi'", () => {
+            const wrapper = shallow(<FormatMessage>Hi</FormatMessage>);
+            expect(wrapper.text()).to.equal("Hi");
+        });
 
-    it("uses proper plural inflection", () => {
-        const wrapper = shallow(<FormatMessage path="task" variables={{count: 1}} />);
-        expect(wrapper.text()).to.equal("You have one task remaining");
+        it("resolves path and prints 'Hi'", () => {
+            const wrapper = shallow(<FormatMessage path="salutations/hi" />);
+            expect(wrapper.text()).to.equal("Hi");
+        });
+
+        it("properly replaces variables", () => {
+            const wrapper = shallow(<FormatMessage path="variables/hello" variables={["Wolfgang", "Amadeus", "Mozart"]} />);
+            expect(wrapper.text()).to.equal("Hello, Wolfgang Amadeus Mozart");
+        });
+
+        it("uses proper gender inflection", () => {
+            const wrapper = shallow(<FormatMessage path="party" variables={{guest:"Mozart", guestGender:"male", host:"Beethoven", hostGender:"other"}} />);
+            expect(wrapper.text()).to.equal("Beethoven invites Mozart to their party");
+        });
+
+        it("uses proper plural inflection", () => {
+            const wrapper = shallow(<FormatMessage path="task" variables={{count: 1}} />);
+            expect(wrapper.text()).to.equal("You have one task remaining");
+        });
     });
 });
