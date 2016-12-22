@@ -189,8 +189,8 @@ Globalize.messageFormatter = Globalize.prototype.messageFormatter = function(pat
 };
 
 export default generator("formatMessage", ["path", "variables"], {
-    beforeFormat: function() {
-        messageSetup(this.globalize, this.props, this.globalizePropValues);
+    beforeFormat: function(props) {
+        messageSetup(this.globalize, props, this.globalizePropValues);
     },
     afterFormat: function(formattedValue) {
         return replaceElements(this.props, formattedValue);
