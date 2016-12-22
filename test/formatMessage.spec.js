@@ -67,5 +67,11 @@ Globalize.loadMessages({
             const wrapper = shallow(<FormatMessage path="task" variables={{count: 1}} />);
             expect(wrapper.text()).to.equal("You have one task remaining");
         });
+
+        it("updates when children change", () => {
+            const wrapper = shallow(<FormatMessage>Hello</FormatMessage>);
+            wrapper.setProps({ children: "Goodbye" });
+            expect(wrapper.text()).to.equal("Goodbye");
+        });
     });
 });

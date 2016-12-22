@@ -42,7 +42,7 @@ function generator(fn, localPropNames, options) {
             });
             this.globalizePropValues[0] = props.children;
 
-            beforeFormat.call(this);
+            beforeFormat.call(this, props);
             var formattedValue = this.globalize[fn].apply(this.globalize, this.globalizePropValues);
             this.value = afterFormat.call(this, formattedValue);
         },
