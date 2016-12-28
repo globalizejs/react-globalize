@@ -1,6 +1,6 @@
 {
   "name": "react-globalize",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "description": "Bringing the i18n functionality of Globalize, backed by CLDR, to React",
   "main": "dist/index.js",
   "files": [
