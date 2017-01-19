@@ -188,7 +188,7 @@ Element Replacement.
     reactGlobalizeLink: <a href='https://github.com/jquery-support/react-globalize'></a>
   }}
 >
-  For more information, see [reactGlobalize]React Globalize[/reactGlobalize]
+  For more information, see [reactGlobalizeLink]React Globalize[/reactGlobalizeLink]
 </FormatMessage>
 // Which would render:
 // <span>
