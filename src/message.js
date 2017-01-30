@@ -40,12 +40,11 @@ function messageSetup(globalize, props, globalizePropValues) {
     // Development mode only.
     if (process.env.NODE_ENV !== "production") {
         var path = props.path ? props.path.split("/") : [globalizePropValues[0]];
-        /* eslint-disable no-inner-declarations */
-        function getMessage(globalize, path) {
+        var getMessage = function(globalize, path) {
             return globalize.cldr.get(["globalize-messages/{bundle}"].concat(path));
-        }
+        };
 
-        function setMessage(globalize, path, message) {
+        var setMessage = function(globalize, path, message) {
             var data = {};
             function set(data, path, value) {
                 var i;
@@ -62,8 +61,7 @@ function messageSetup(globalize, props, globalizePropValues) {
             }
             set(data, [globalize.cldr.attributes.bundle].concat(path), message);
             Globalize.loadMessages(data);
-        }
-        /* eslint-enable no-inner-declarations */
+        };
 
         if (globalize.cldr) {
             if (!getMessage(globalize, path)) {
