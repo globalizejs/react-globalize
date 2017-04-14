@@ -1,3 +1,4 @@
+import reactCreateClass from "./react-create-class";
 import React from "react";
 import Globalize from "globalize";
 
@@ -22,7 +23,7 @@ function generator(fn, localPropNames, options) {
     };
     var globalizePropNames = commonPropNames.concat(localPropNames);
 
-    return React.createClass({
+    return reactCreateClass({
         displayName: Fn,
         componentWillMount: function() {
             this.setup(this.props);
