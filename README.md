@@ -239,6 +239,36 @@ Show at least 2 decimal places.
 // <span>10.000,00</span> when using the `pt` (Portuguese) locale.
 ```
 
+## Development
+
+### Testing
+
+```
+npm test
+```
+
+### Release process
+
+Update package.json version, commit, and merge it into `master`.
+
+On master, run:
+
+```
+VER=<version> # e.g., "0.4.0"
+git checkout --detach &&
+grunt &&
+git add -f dist/* &&
+git commit -a -m Build &&
+git tag -a -m v$VER v$VER
+```
+
+Verify the tag and:
+
+```
+git push --tags origin &&
+npm publish
+```
+
 ## License
 
 This project is distributed under the [MIT license](https://www.tldrlegal.com/l/mit).
