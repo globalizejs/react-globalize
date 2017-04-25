@@ -1,3 +1,4 @@
+test commit
 # react-globalize
 
 [React](http://facebook.github.io/react/) components that provide internationalization features via [Globalize](https://github.com/jquery/globalize). With a little initialization, you get instantly internationalized values in your application.
