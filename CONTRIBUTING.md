@@ -5,3 +5,4 @@ Before we can review or merge any pull request, we ask that you sign our [contri
 You can find us on [IRC](http://irc.jquery.org), specifically in #globalize on Freenode should you have any questions. If you've never contributed to open source before, we've put together [a short guide with tips, tricks, and ideas on getting started](http://contribute.jquery.org/open-source/).
 
 Thank You!
+
