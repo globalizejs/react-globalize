@@ -1,6 +1,8 @@
 import React from "react";
 
-var [major, minor] = React.version.split(".");
+var versions = React.version.split(".");
+var major = versions[0];
+var minor = versions[1];
 
 var REACT15 = major === "15";
 var REACT155 = REACT15 && minor >= 5;
