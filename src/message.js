@@ -182,7 +182,7 @@ Globalize.messageFormatter = Globalize.prototype.messageFormatter = function(pat
         sanitizedPathExists = true;
     }
 
-    arguments[0] = sanitizedPathExists ? sanitizedPath : pathOrMessage;
+    arguments[0] = pathExists ? pathOrMessage : sanitizedPath;
     return globalizeMessageFormatter.apply(this, arguments);
 };
 
