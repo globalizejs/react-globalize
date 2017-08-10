@@ -1,10 +1,70 @@
-'use strict';
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('globalize'), require('globalize/currency'), require('globalize/date'), require('globalize/message'), require('globalize/plural'), require('globalize/number'), require('globalize/relative-time')) :
+	typeof define === 'function' && define.amd ? define(['react', 'globalize', 'globalize/currency', 'globalize/date', 'globalize/message', 'globalize/plural', 'globalize/number', 'globalize/relative-time'], factory) :
+	(global['react-globalize'] = factory(global.React,global.Globalize));
+}(this, (function (React,Globalize) { 'use strict';
 
-var Globalize = require('globalize');
-var React = require('react');
-var generator = require('./generator');
+React = React && 'default' in React ? React['default'] : React;
+Globalize = Globalize && 'default' in Globalize ? Globalize['default'] : Globalize;
 
+var commonPropNames = ["elements", "locale"];
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function omit(set) {
+    return function(element) {
+        return set.indexOf(element) === -1;
+    };
+}
+
+function generator(fn, localPropNames, options) {
+    options = options || {};
+    var Fn = capitalizeFirstLetter(fn);
+    var beforeFormat = options.beforeFormat || function() {};
+    var afterFormat = options.afterFormat || function(formattedValue) {
+        return formattedValue;
+    };
+    var globalizePropNames = commonPropNames.concat(localPropNames);
+
+    return class extends React.Component {
+        //static displayName = Fn;
+
+        componentWillMount() {
+            this.setup(this.props);
+        }
+
+        componentWillReceiveProps(nextProps) {
+            this.setup(nextProps);
+        }
+
+        setup(props) {
+            this.globalize = props.locale ? Globalize(props.locale) : Globalize;
+            this.domProps = Object.keys(props).filter(omit(globalizePropNames)).reduce(function(memo, propKey) {
+                memo[propKey] = props[propKey];
+                return memo;
+            }, {});
+
+            this.globalizePropValues = localPropNames.map(function(element) {
+                return props[element];
+            });
+            this.globalizePropValues[0] = props.children;
+
+            beforeFormat.call(this, props);
+            var formattedValue = this.globalize[fn].apply(this.globalize, this.globalizePropValues);
+            this.value = afterFormat.call(this, formattedValue);
+        }
+
+        render() {
+            return React.DOM.span(this.domProps, this.value);
+        }
+    };
+}
+
+var FormatCurrency = generator("formatCurrency", ["value", "currency", "options"]);
+
+var FormatDate = generator("formatDate", ["value", "options"]);
 
 function messageSetup(globalize, props, globalizePropValues) {
     var defaultMessage;
@@ -188,7 +248,7 @@ Globalize.messageFormatter = Globalize.prototype.messageFormatter = function(pat
     return globalizeMessageFormatter.apply(this, arguments);
 };
 
-module.exports = generator("formatMessage", ["path", "variables"], {
+var FormatMessage = generator("formatMessage", ["path", "variables"], {
     beforeFormat: function(props) {
         messageSetup(this.globalize, props, this.globalizePropValues);
     },
@@ -196,3 +256,19 @@ module.exports = generator("formatMessage", ["path", "variables"], {
         return replaceElements(this.props, formattedValue);
     }
 });
+
+var FormatNumber = generator("formatNumber", ["value", "options"]);
+
+var FormatRelativeTime = generator("formatRelativeTime", ["value", "unit", "options"]);
+
+var index = {
+    FormatCurrency: FormatCurrency,
+    FormatDate: FormatDate,
+    FormatMessage: FormatMessage,
+    FormatNumber: FormatNumber,
+    FormatRelativeTime: FormatRelativeTime
+};
+
+return index;
+
+})));

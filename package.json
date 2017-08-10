@@ -2,7 +2,9 @@
   "name": "react-globalize",
   "version": "0.4.1",
   "description": "Bringing the i18n functionality of Globalize, backed by CLDR, to React",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
   "files": [
     "dist/",
     "examples/",
@@ -11,6 +13,8 @@
     "src/"
   ],
   "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
     "test": "grunt test"
   },
   "keywords": [
@@ -55,6 +59,16 @@
     "mocha": "^2.4.5",
     "react": "15.0.1",
     "react-addons-test-utils": "15.0.1",
-    "react-dom": "15.0.1"
+    "react-dom": "15.0.1",
+    "rollup": "^0.43.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-watch": "^4.0.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react-app"
+    ]
   }
 }
