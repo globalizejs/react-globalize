@@ -23,7 +23,7 @@ function generator(fn, localPropNames, options) {
     var globalizePropNames = commonPropNames.concat(localPropNames);
 
     return class extends React.Component {
-        //static displayName = Fn;
+        static displayName = Fn;
 
         componentWillMount() {
             this.setup(this.props);

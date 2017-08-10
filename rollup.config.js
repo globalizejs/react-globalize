@@ -1,3 +1,4 @@
+import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import pkg from './package.json';
@@ -21,7 +22,10 @@ export default [
 		moduleName: 'react-globalize',
 		plugins: [
 			resolve(), // so Rollup can find `react`
-			commonjs() // so Rollup can convert `react` to an ES module
+            commonjs(), // so Rollup can convert `react` to an ES module
+            babel({
+                exclude: 'node_modules/**' // only transpile our source code
+            })
         ],
         globals: {
             react: 'React',
@@ -49,6 +53,12 @@ export default [
 		targets: [
 			{ dest: pkg.main, format: 'cjs' },
 			{ dest: pkg.module, format: 'es' }
-		]
+        ],
+        plugins: [
+			resolve(), // so Rollup can find `react`
+            babel({
+                exclude: 'node_modules/**' // only transpile our source code
+            })
+        ],
 	}
 ];

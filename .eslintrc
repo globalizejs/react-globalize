@@ -10,7 +10,8 @@
   ],
   "parser": "babel-eslint",
   "plugins": [
-    "react"
+    "react",
+    "class-property"
   ],
   "rules": {
     "indent": 2,

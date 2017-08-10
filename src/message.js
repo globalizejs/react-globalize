@@ -1,8 +1,8 @@
 import Globalize from "globalize";
 import React from "react";
 import generator from "./generator";
-import "globalize/message";
-import "globalize/plural";
+//import "globalize/message";
+//import "globalize/plural";
 
 function messageSetup(globalize, props, globalizePropValues) {
     var defaultMessage;

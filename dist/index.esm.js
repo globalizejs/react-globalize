@@ -1,11 +1,87 @@
 import React from 'react';
 import Globalize from 'globalize';
-import 'globalize/currency';
-import 'globalize/date';
-import 'globalize/message';
-import 'globalize/plural';
-import 'globalize/number';
-import 'globalize/relative-time';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+
+
+
+
+
+
+
+
+var inherits = function (subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+};
+
+
+
+
+
+
+
+
+
+
+
+var possibleConstructorReturn = function (self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return call && (typeof call === "object" || typeof call === "function") ? call : self;
+};
 
 var commonPropNames = ["elements", "locale"];
 
@@ -13,58 +89,79 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function omit(set) {
-    return function(element) {
-        return set.indexOf(element) === -1;
+function omit(set$$1) {
+    return function (element) {
+        return set$$1.indexOf(element) === -1;
     };
 }
 
 function generator(fn, localPropNames, options) {
+    var _class, _temp;
+
     options = options || {};
     var Fn = capitalizeFirstLetter(fn);
-    var beforeFormat = options.beforeFormat || function() {};
-    var afterFormat = options.afterFormat || function(formattedValue) {
+    var beforeFormat = options.beforeFormat || function () {};
+    var afterFormat = options.afterFormat || function (formattedValue) {
         return formattedValue;
     };
     var globalizePropNames = commonPropNames.concat(localPropNames);
 
-    return class extends React.Component {
-        //static displayName = Fn;
+    return _temp = _class = function (_React$Component) {
+        inherits(_class, _React$Component);
 
-        componentWillMount() {
-            this.setup(this.props);
+        function _class() {
+            classCallCheck(this, _class);
+            return possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
         }
 
-        componentWillReceiveProps(nextProps) {
-            this.setup(nextProps);
-        }
+        createClass(_class, [{
+            key: "componentWillMount",
+            value: function componentWillMount() {
+                this.setup(this.props);
+            }
+        }, {
+            key: "componentWillReceiveProps",
+            value: function componentWillReceiveProps(nextProps) {
+                this.setup(nextProps);
+            }
+        }, {
+            key: "setup",
+            value: function setup(props) {
+                this.globalize = props.locale ? Globalize(props.locale) : Globalize;
+                this.domProps = Object.keys(props).filter(omit(globalizePropNames)).reduce(function (memo, propKey) {
+                    memo[propKey] = props[propKey];
+                    return memo;
+                }, {});
 
-        setup(props) {
-            this.globalize = props.locale ? Globalize(props.locale) : Globalize;
-            this.domProps = Object.keys(props).filter(omit(globalizePropNames)).reduce(function(memo, propKey) {
-                memo[propKey] = props[propKey];
-                return memo;
-            }, {});
+                this.globalizePropValues = localPropNames.map(function (element) {
+                    return props[element];
+                });
+                this.globalizePropValues[0] = props.children;
 
-            this.globalizePropValues = localPropNames.map(function(element) {
-                return props[element];
-            });
-            this.globalizePropValues[0] = props.children;
-
-            beforeFormat.call(this, props);
-            var formattedValue = this.globalize[fn].apply(this.globalize, this.globalizePropValues);
-            this.value = afterFormat.call(this, formattedValue);
-        }
-
-        render() {
-            return React.DOM.span(this.domProps, this.value);
-        }
-    };
+                beforeFormat.call(this, props);
+                var formattedValue = this.globalize[fn].apply(this.globalize, this.globalizePropValues);
+                this.value = afterFormat.call(this, formattedValue);
+            }
+        }, {
+            key: "render",
+            value: function render() {
+                return React.DOM.span(this.domProps, this.value);
+            }
+        }]);
+        return _class;
+    }(React.Component), _class.displayName = Fn, _temp;
 }
+
+//import "globalize/currency";
 
 var FormatCurrency = generator("formatCurrency", ["value", "currency", "options"]);
 
+//import "globalize/date";
+
 var FormatDate = generator("formatDate", ["value", "options"]);
+
+//import "globalize/message";
+//import "globalize/plural";
 
 function messageSetup(globalize, props, globalizePropValues) {
     var defaultMessage;
@@ -75,7 +172,7 @@ function messageSetup(globalize, props, globalizePropValues) {
         if (typeof children === "string") {
             return children;
         } else {
-            throw new Error("Invalid default message type `" + typeof children + "`");
+            throw new Error("Invalid default message type `" + (typeof children === "undefined" ? "undefined" : _typeof(children)) + "`");
         }
     }
 
@@ -102,13 +199,13 @@ function messageSetup(globalize, props, globalizePropValues) {
     // Development mode only.
     if (process.env.NODE_ENV !== "production") {
         var path = props.path ? props.path.split("/") : [globalizePropValues[0]];
-        var getMessage = function(globalize, path) {
+        var getMessage = function getMessage(globalize, path) {
             return globalize.cldr.get(["globalize-messages/{bundle}"].concat(path));
         };
 
-        var setMessage = function(globalize, path, message) {
+        var setMessage = function setMessage(globalize, path, message) {
             var data = {};
-            function set(data, path, value) {
+            function set$$1(data, path, value) {
                 var i;
                 var node = data;
                 var length = path.length;
@@ -121,7 +218,7 @@ function messageSetup(globalize, props, globalizePropValues) {
                 }
                 node[path[i]] = value;
             }
-            set(data, [globalize.cldr.attributes.bundle].concat(path), message);
+            set$$1(data, [globalize.cldr.attributes.bundle].concat(path), message);
             Globalize.loadMessages(data);
         };
 
@@ -139,18 +236,18 @@ function replaceElements(props, formatted) {
 
     function _replaceElements(string, elements) {
         if (typeof string !== "string") {
-            throw new Error("Missing or invalid string `" + string + "` (" + typeof string + ")");
+            throw new Error("Missing or invalid string `" + string + "` (" + (typeof string === "undefined" ? "undefined" : _typeof(string)) + ")");
         }
-        if (typeof elements !== "object") {
-            throw new Error("Missing or invalid elements `" + elements + "` (" + typeof elements + ")");
+        if ((typeof elements === "undefined" ? "undefined" : _typeof(elements)) !== "object") {
+            throw new Error("Missing or invalid elements `" + elements + "` (" + (typeof elements === "undefined" ? "undefined" : _typeof(elements)) + ")");
         }
 
         // Given [x, y, z], it returns [x, element, y, element, z].
         function spreadElementsInBetweenItems(array, element) {
-            var getElement = typeof element === "function" ? element : function() {
+            var getElement = typeof element === "function" ? element : function () {
                 return element;
             };
-            return array.slice(1).reduce(function(ret, item, i) {
+            return array.slice(1).reduce(function (ret, item, i) {
                 ret.push(getElement(i), item);
                 return ret;
             }, [array[0]]);
@@ -160,10 +257,10 @@ function replaceElements(props, formatted) {
             [].splice.apply(sourceArray, [start, deleteCount].concat(itemsArray));
         }
 
-        return Object.keys(elements).reduce(function(ret, key) {
+        return Object.keys(elements).reduce(function (ret, key) {
             var element = elements[key];
 
-            ret.forEach(function(string, i) {
+            ret.forEach(function (string, i) {
                 var aux, contents, regexp, regexp2;
 
                 // Insert array into the correct ret position.
@@ -188,10 +285,10 @@ function replaceElements(props, formatted) {
                 regexp2 = new RegExp("\\[" + key + "\\]([\\s\\S]*?)\\[\\/" + key + "\\]");
                 aux = string.split(regexp);
                 if (aux.length > 1) {
-                    contents = string.match(regexp).map(function(content) {
+                    contents = string.match(regexp).map(function (content) {
                         return content.replace(regexp2, "$1");
                     });
-                    aux = spreadElementsInBetweenItems(aux, function(i) {
+                    aux = spreadElementsInBetweenItems(aux, function (i) {
                         return React.cloneElement(element, {}, contents[i]);
                     });
                     replaceRetItem(aux);
@@ -201,7 +298,6 @@ function replaceElements(props, formatted) {
             return ret;
         }, [string]);
     }
-
 
     // Elements replacement.
     if (elements) {
@@ -217,7 +313,7 @@ function sanitizePath(pathString) {
 
 // Overload Globalize's `.formatMessage` to allow default message.
 var globalizeMessageFormatter = Globalize.messageFormatter;
-Globalize.messageFormatter = Globalize.prototype.messageFormatter = function(pathOrMessage) {
+Globalize.messageFormatter = Globalize.prototype.messageFormatter = function (pathOrMessage) {
     var aux = {};
     var sanitizedPath = sanitizePath(pathOrMessage);
 
@@ -249,15 +345,19 @@ Globalize.messageFormatter = Globalize.prototype.messageFormatter = function(pat
 };
 
 var FormatMessage = generator("formatMessage", ["path", "variables"], {
-    beforeFormat: function(props) {
+    beforeFormat: function beforeFormat(props) {
         messageSetup(this.globalize, props, this.globalizePropValues);
     },
-    afterFormat: function(formattedValue) {
+    afterFormat: function afterFormat(formattedValue) {
         return replaceElements(this.props, formattedValue);
     }
 });
 
+//import "globalize/number";
+
 var FormatNumber = generator("formatNumber", ["value", "options"]);
+
+//import "globalize/relative-time";
 
 var FormatRelativeTime = generator("formatRelativeTime", ["value", "unit", "options"]);
 
