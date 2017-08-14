@@ -1,9 +1,9 @@
-/*global expect React shallow Globalize*/
-import FormatDate from "../dist/date";
+/* global expect React shallow Globalize */
+import { FormatDate } from "../dist/index.umd";
 
 describe("formatDate Component", () => {
     it("renders as a <span>", () => {
-        const wrapper = shallow(<FormatDate options={{date: "medium"}}>{new Date()}</FormatDate>);
+        const wrapper = shallow(<FormatDate options={{ date: "medium" }}>{new Date()}</FormatDate>);
         expect(wrapper.type()).to.equal("span");
     });
 
@@ -13,7 +13,7 @@ describe("formatDate Component", () => {
     });
 
     it("formats date using options 'Jan 1, 2016'", () => {
-        const wrapper = shallow(<FormatDate options={{date: "medium"}}>{new Date(2016, 0, 1)}</FormatDate>);
+        const wrapper = shallow(<FormatDate options={{ date: "medium" }}>{new Date(2016, 0, 1)}</FormatDate>);
         expect(wrapper.text()).to.equal("Jan 1, 2016");
     });
 });

@@ -5,20 +5,22 @@
     "mocha": true,
     "node": true
   },
-  "extends": [
-    "defaults"
-  ],
   "parser": "babel-eslint",
+  "extends": [
+    "airbnb"
+  ],
   "plugins": [
-    "react",
     "class-property"
   ],
   "rules": {
-    "indent": 2,
+    "indent": ["error", 4],
     "no-console": 1,
     "no-trailing-spaces": 2,
     "no-unused-vars": [0, {"ignore": ["React"]}],
     "quotes": [2, "double"],
-    "semi": 1
+    "semi": 1,
+    "jsx-a11y/href-no-hash": 0,
+    "jsx-a11y/anchor-is-valid": 2,
+    "react/jsx-filename-extension": 0
   }
 }

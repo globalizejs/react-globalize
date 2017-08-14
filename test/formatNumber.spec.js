@@ -1,5 +1,5 @@
-/*global expect React shallow Globalize*/
-import FormatNumber from "../dist/number";
+/* global expect React shallow Globalize */
+import { FormatNumber } from "../dist/index.umd";
 
 describe("formatNumber Component", () => {
     it("renders as a <span>", () => {

@@ -1,18 +1,16 @@
-var FormatDate = require('../react-globalize').FormatDate;
-var React = require('react');
+import React from "react";
+import { FormatDate } from "../react-globalize";
 
-module.exports = React.createClass({
-    getInitialState: function() {
-        return {
-            locale: "en"
-        };
-    },
-    handleChange: function( event ) {
+class LocalizedDates extends React.Component {
+    state = {
+        locale: "en",
+    };
+    handleChange = (event) => {
         this.setState({
-            locale: event.target.value
+            locale: event.target.value,
         });
-    },
-    render: function() {
+    }
+    render() {
         return (
             <div>
                 <div>
@@ -22,18 +20,19 @@ module.exports = React.createClass({
                         <option value="pt-BR">pt-BR</option>
                     </select>
                 </div>
-                <br/>
-                "GyMMMd" - <FormatDate locale={this.state.locale} pattern="GyMMMd">{new Date()}</FormatDate>
-                <br/>
-                date: "medium" - <FormatDate locale={this.state.locale} pattern={{ date: "medium" }}>{new Date()}</FormatDate>
-                <br/>
-                time: "medium" - <FormatDate locale={this.state.locale} pattern={{ time: "medium" }}>{new Date()}</FormatDate>
-                <br/>
-                datetime: "medium" - <FormatDate locale={this.state.locale} pattern={{ datetime: 'medium' }}>{new Date()}</FormatDate>
-                <br/>
-                datetime: "medium" with CSS class -
-                <FormatDate className='secondClass' locale={this.state.locale} pattern={{ datetime: 'medium' }}>{new Date()}</FormatDate>
+                <br />
+                &quot;GyMMMd&quot; - <FormatDate locale={this.state.locale} pattern="GyMMMd">{new Date()}</FormatDate>
+                <br />
+                date: &quot;medium&quot; - <FormatDate locale={this.state.locale} pattern={{ date: "medium" }}>{new Date()}</FormatDate>
+                <br />
+                time: &quot;medium&quot; - <FormatDate locale={this.state.locale} pattern={{ time: "medium" }}>{new Date()}</FormatDate>
+                <br />
+                datetime: &quot;medium&quot; - <FormatDate locale={this.state.locale} pattern={{ datetime: "medium" }}>{new Date()}</FormatDate>
+                <br />
+                datetime: &quot;medium&quot; with CSS class -
+                <FormatDate className="secondClass" locale={this.state.locale} pattern={{ datetime: "medium" }}>{new Date()}</FormatDate>
             </div>
         );
     }
-});
+}
+export default LocalizedDates;

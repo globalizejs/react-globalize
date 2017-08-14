@@ -1,6 +1,5 @@
-/*global expect React shallow Globalize*/
-import FormatCurrency from "../dist/currency";
-import FormatMessage from "../dist/message";
+/* global expect React shallow Globalize */
+import { FormatCurrency, FormatMessage } from "../dist/index.umd";
 
 describe("Any Component", () => {
     it("doesn't forward ReactGlobalize specific props to underlying DOM component", () => {
@@ -8,7 +7,7 @@ describe("Any Component", () => {
         expect(wrapper.props()).to.contain.all.keys(["children"]);
         expect(wrapper.props()).to.not.contain.any.keys(["locale", "currency"]);
 
-        wrapper = shallow(<FormatMessage className="a-class-name" style={{aStyle: 1}} elements={{foo: 1}} variables={{bar: 2}}>Hello</FormatMessage>);
+        wrapper = shallow(<FormatMessage className="a-class-name" style={{ aStyle: 1 }} elements={{ foo: 1 }} variables={{ bar: 2 }}>Hello</FormatMessage>);
         expect(wrapper.props()).to.contain.all.keys(["children", "className", "style"]);
         expect(wrapper.props()).to.not.contain.any.keys(["elements", "variables"]);
     });

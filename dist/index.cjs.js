@@ -4,6 +4,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var React = _interopDefault(require('react'));
 var Globalize = _interopDefault(require('globalize'));
+var PropTypes = _interopDefault(require('prop-types'));
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
@@ -49,7 +50,34 @@ var createClass = function () {
 
 
 
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
 
+  return obj;
+};
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
 
 
 
@@ -87,6 +115,34 @@ var possibleConstructorReturn = function (self, call) {
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var toConsumableArray = function (arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  } else {
+    return Array.from(arr);
+  }
+};
+
 var commonPropNames = ["elements", "locale"];
 
 function capitalizeFirstLetter(string) {
@@ -94,7 +150,7 @@ function capitalizeFirstLetter(string) {
 }
 
 function omit(set$$1) {
-    return function (element) {
+    return function omitElem(element) {
         return set$$1.indexOf(element) === -1;
     };
 }
@@ -102,10 +158,10 @@ function omit(set$$1) {
 function generator(fn, localPropNames, options) {
     var _class, _temp;
 
-    options = options || {};
+    var opts = options || {};
     var Fn = capitalizeFirstLetter(fn);
-    var beforeFormat = options.beforeFormat || function () {};
-    var afterFormat = options.afterFormat || function (formattedValue) {
+    var beforeFormat = opts.beforeFormat || function () {};
+    var afterFormat = opts.afterFormat || function (formattedValue) {
         return formattedValue;
     };
     var globalizePropNames = commonPropNames.concat(localPropNames);
@@ -131,10 +187,11 @@ function generator(fn, localPropNames, options) {
         }, {
             key: "setup",
             value: function setup(props) {
+                var _globalize;
+
                 this.globalize = props.locale ? Globalize(props.locale) : Globalize;
                 this.domProps = Object.keys(props).filter(omit(globalizePropNames)).reduce(function (memo, propKey) {
-                    memo[propKey] = props[propKey];
-                    return memo;
+                    return _extends({}, memo, defineProperty({}, propKey, props[propKey]));
                 }, {});
 
                 this.globalizePropValues = localPropNames.map(function (element) {
@@ -143,41 +200,41 @@ function generator(fn, localPropNames, options) {
                 this.globalizePropValues[0] = props.children;
 
                 beforeFormat.call(this, props);
-                var formattedValue = this.globalize[fn].apply(this.globalize, this.globalizePropValues);
+                var formattedValue = (_globalize = this.globalize)[fn].apply(_globalize, toConsumableArray(this.globalizePropValues));
                 this.value = afterFormat.call(this, formattedValue);
             }
         }, {
             key: "render",
             value: function render() {
-                return React.DOM.span(this.domProps, this.value);
+                return React.createElement(
+                    "span",
+                    this.domProps,
+                    this.value
+                );
             }
         }]);
         return _class;
     }(React.Component), _class.displayName = Fn, _temp;
 }
 
-//import "globalize/currency";
-
 var FormatCurrency = generator("formatCurrency", ["value", "currency", "options"]);
-
-//import "globalize/date";
 
 var FormatDate = generator("formatDate", ["value", "options"]);
 
-//import "globalize/message";
-//import "globalize/plural";
+function sanitizePath(pathString) {
+    return pathString.trim().replace(/\{/g, "(").replace(/\}/g, ")").replace(/\//g, "|").replace(/\n/g, " ").replace(/ +/g, " ").replace(/"/g, "'");
+}
 
 function messageSetup(globalize, props, globalizePropValues) {
-    var defaultMessage;
+    var defaultMessage = void 0;
     var children = props.children;
     var scope = props.scope;
 
-    function getDefaultMessage(children) {
-        if (typeof children === "string") {
-            return children;
-        } else {
-            throw new Error("Invalid default message type `" + (typeof children === "undefined" ? "undefined" : _typeof(children)) + "`");
+    function getDefaultMessage(childs) {
+        if (typeof childs === "string") {
+            return childs;
         }
+        throw new Error("Invalid default message type `" + (typeof childs === "undefined" ? "undefined" : _typeof(childs)) + "`");
     }
 
     // Set path - path as props supercedes default value.
@@ -186,35 +243,36 @@ function messageSetup(globalize, props, globalizePropValues) {
         // (path) and props.children to be mutually exclusive, but this isn't
         // true here for messages. Because, it's possible to use props.path (for
         // path) and props.children for defaultMessage, which are two different
-        // variables.
-        globalizePropValues[0] = props.path;
+        // variables.        
+        globalizePropValues[0] = props.path; // eslint-disable-line no-param-reassign
     } else {
         // Although the generator had already set globalizePropValues[0] (path) as
         // props.children, here its type is checked and its value is sanitized.
         defaultMessage = getDefaultMessage(children);
+        // eslint-disable-next-line no-param-reassign
         globalizePropValues[0] = sanitizePath(defaultMessage);
     }
 
     // Scope path.
     if (scope) {
-        globalizePropValues[0] = scope + "/" + globalizePropValues[0];
+        globalizePropValues[0] = scope + "/" + globalizePropValues[0]; // eslint-disable-line no-param-reassign
     }
 
     // Development mode only.
     if (process.env.NODE_ENV !== "production") {
-        var path = props.path ? props.path.split("/") : [globalizePropValues[0]];
-        var getMessage = function getMessage(globalize, path) {
-            return globalize.cldr.get(["globalize-messages/{bundle}"].concat(path));
+        var pathProp = props.path ? props.path.split("/") : [globalizePropValues[0]];
+        var getMessage = function getMessage(p) {
+            return globalize.cldr.get(["globalize-messages/{bundle}"].concat(p));
         };
 
-        var setMessage = function setMessage(globalize, path, message) {
+        var setMessage = function setMessage(p, message) {
             var data = {};
-            function set$$1(data, path, value) {
-                var i;
-                var node = data;
+            function set$$1(d, path, value) {
+                var i = void 0;
+                var node = d;
                 var length = path.length;
 
-                for (i = 0; i < length - 1; i++) {
+                for (i = 0; i < length - 1; i += 1) {
                     if (!node[path[i]]) {
                         node[path[i]] = {};
                     }
@@ -222,22 +280,23 @@ function messageSetup(globalize, props, globalizePropValues) {
                 }
                 node[path[i]] = value;
             }
-            set$$1(data, [globalize.cldr.attributes.bundle].concat(path), message);
+            set$$1(data, [globalize.cldr.attributes.bundle].concat(p), message);
             Globalize.loadMessages(data);
         };
 
         if (globalize.cldr) {
-            if (!getMessage(globalize, path)) {
+            if (!getMessage(pathProp)) {
                 defaultMessage = defaultMessage || getDefaultMessage(children);
-                setMessage(globalize, path, defaultMessage);
+                setMessage(pathProp, defaultMessage);
             }
         }
     }
 }
 
 function replaceElements(props, formatted) {
-    var elements = props.elements;
+    var elementsProp = props.elements;
 
+    // eslint-disable-next-line no-underscore-dangle
     function _replaceElements(string, elements) {
         if (typeof string !== "string") {
             throw new Error("Missing or invalid string `" + string + "` (" + (typeof string === "undefined" ? "undefined" : _typeof(string)) + ")");
@@ -264,20 +323,18 @@ function replaceElements(props, formatted) {
         return Object.keys(elements).reduce(function (ret, key) {
             var element = elements[key];
 
-            ret.forEach(function (string, i) {
-                var aux, contents, regexp, regexp2;
-
+            ret.forEach(function (str, i) {
                 // Insert array into the correct ret position.
                 function replaceRetItem(array) {
                     splice(ret, i, 1, array);
                 }
 
-                if (typeof string !== "string") {
+                if (typeof str !== "string") {
                     return; // continue;
                 }
 
                 // Empty tags, e.g., `[foo/]`.
-                aux = string.split("[" + key + "/]");
+                var aux = str.split("[" + key + "/]");
                 if (aux.length > 1) {
                     aux = spreadElementsInBetweenItems(aux, element);
                     replaceRetItem(aux);
@@ -285,15 +342,15 @@ function replaceElements(props, formatted) {
                 }
 
                 // Start-end tags, e.g., `[foo]content[/foo]`.
-                regexp = new RegExp("\\[" + key + "\\][\\s\\S]*?\\[\\/" + key + "\\]", "g");
-                regexp2 = new RegExp("\\[" + key + "\\]([\\s\\S]*?)\\[\\/" + key + "\\]");
-                aux = string.split(regexp);
+                var regexp = new RegExp("\\[" + key + "\\][\\s\\S]*?\\[\\/" + key + "\\]", "g");
+                var regexp2 = new RegExp("\\[" + key + "\\]([\\s\\S]*?)\\[\\/" + key + "\\]");
+                aux = str.split(regexp);
                 if (aux.length > 1) {
-                    contents = string.match(regexp).map(function (content) {
+                    var contents = str.match(regexp).map(function (content) {
                         return content.replace(regexp2, "$1");
                     });
-                    aux = spreadElementsInBetweenItems(aux, function (i) {
-                        return React.cloneElement(element, {}, contents[i]);
+                    aux = spreadElementsInBetweenItems(aux, function (idx) {
+                        return React.cloneElement(element, {}, contents[idx]);
                     });
                     replaceRetItem(aux);
                 }
@@ -304,31 +361,37 @@ function replaceElements(props, formatted) {
     }
 
     // Elements replacement.
-    if (elements) {
-        formatted = React.DOM.span.apply(React.DOM.span, [{}].concat(_replaceElements(formatted, elements)));
+    if (elementsProp) {
+        // const components = _replaceElements(formatted, elementsProp);
+        return React.createElement.apply(React, ["span", {}].concat(toConsumableArray(_replaceElements(formatted, elementsProp))));
     }
-
     return formatted;
 }
-
-function sanitizePath(pathString) {
-    return pathString.trim().replace(/\{/g, "(").replace(/\}/g, ")").replace(/\//g, "|").replace(/\n/g, " ").replace(/ +/g, " ").replace(/"/g, "'");
-}
+replaceElements.propTypes = {
+    elements: PropTypes.shape.isRequired
+};
 
 // Overload Globalize's `.formatMessage` to allow default message.
 var globalizeMessageFormatter = Globalize.messageFormatter;
+// eslint-disable-next-line no-multi-assign, max-len, func-names
 Globalize.messageFormatter = Globalize.prototype.messageFormatter = function (pathOrMessage) {
     var aux = {};
     var sanitizedPath = sanitizePath(pathOrMessage);
+
+    for (var _len = arguments.length, rest = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        rest[_key - 1] = arguments[_key];
+    }
+
+    var args = [pathOrMessage].concat(rest);
 
     // Globalize runtime
     if (!this.cldr) {
         // On runtime, the only way for deciding between using sanitizedPath or
         // pathOrMessage as path is by checking which formatter exists.
-        arguments[0] = sanitizedPath;
-        aux = globalizeMessageFormatter.apply(this, arguments);
-        arguments[0] = pathOrMessage;
-        return aux || globalizeMessageFormatter.apply(this, arguments);
+        args[0] = sanitizedPath;
+        aux = globalizeMessageFormatter.apply(this, args);
+        args[0] = pathOrMessage;
+        return aux || globalizeMessageFormatter.apply(this, args);
     }
 
     var sanitizedPathExists = this.cldr.get(["globalize-messages/{bundle}", sanitizedPath]) !== undefined;
@@ -344,24 +407,20 @@ Globalize.messageFormatter = Globalize.prototype.messageFormatter = function (pa
         sanitizedPathExists = true;
     }
 
-    arguments[0] = sanitizedPathExists ? sanitizedPath : pathOrMessage;
-    return globalizeMessageFormatter.apply(this, arguments);
+    args[0] = sanitizedPathExists ? sanitizedPath : pathOrMessage;
+    return globalizeMessageFormatter.apply(this, args);
 };
 
 var FormatMessage = generator("formatMessage", ["path", "variables"], {
-    beforeFormat: function beforeFormat(props) {
+    beforeFormat: function messageBeforeFormat(props) {
         messageSetup(this.globalize, props, this.globalizePropValues);
     },
-    afterFormat: function afterFormat(formattedValue) {
+    afterFormat: function messageAfterFormat(formattedValue) {
         return replaceElements(this.props, formattedValue);
     }
 });
 
-//import "globalize/number";
-
 var FormatNumber = generator("formatNumber", ["value", "options"]);
-
-//import "globalize/relative-time";
 
 var FormatRelativeTime = generator("formatRelativeTime", ["value", "unit", "options"]);
 
