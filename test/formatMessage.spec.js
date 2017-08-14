@@ -9,6 +9,9 @@ Globalize.loadMessages({
         variables: {
             hello: "Hello, {0} {1} {2}"
         },
+        elements: {
+            rglink: "For more information, see [reactGlobalizeLink]React Globalize[/reactGlobalizeLink]"
+        },
         party: [
             "{hostGender, select,",
             "  female {{host} invites {guest} to her party}",
@@ -26,9 +29,9 @@ Globalize.loadMessages({
     }
 });
 
-[ "development", "production" ].forEach((env) => {
+["development", "production"].forEach((env) => {
     describe(`formatMessage Component (${env})`, () => {
-        var originalEnv = process.env.NODE_ENV;
+        const originalEnv = process.env.NODE_ENV;
 
         before(() => {
             process.env.NODE_ENV = env;
@@ -56,6 +59,11 @@ Globalize.loadMessages({
         it("properly replaces variables", () => {
             const wrapper = shallow(<FormatMessage path="variables/hello" variables={["Wolfgang", "Amadeus", "Mozart"]} />);
             expect(wrapper.text()).to.equal("Hello, Wolfgang Amadeus Mozart");
+        });
+
+        it("properly replaces elements", () => {
+            const wrapper = shallow(<FormatMessage path="elements/rglink" elements={{reactGlobalizeLink: <a href="https://github.com/jquery-support/react-globalize"></a>}} />);
+            expect(wrapper.html()).to.equal("<span>For more information, see <a href=\"https://github.com/jquery-support/react-globalize\">React Globalize</a></span>");
         });
 
         it("uses proper gender inflection", () => {
