@@ -1,5 +1,6 @@
 import React from "react";
 import Globalize from "globalize";
+import alwaysArray from "./util/always-array";
 
 var commonPropNames = ["elements", "locale"];
 
@@ -46,8 +47,8 @@ function generator(fn, localPropNames, options) {
             this.globalizePropValues[0] = props.children;
 
             beforeFormat.call(this, props);
-            var formattedValue = this.globalize[fn].apply(this.globalize, this.globalizePropValues);
-            this.value = afterFormat.call(this, formattedValue);
+            var formattedValue = this.globalize[fn](...this.globalizePropValues);
+            this.value = alwaysArray(afterFormat.call(this, formattedValue));
         }
 
         render() {
