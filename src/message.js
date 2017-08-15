@@ -145,8 +145,7 @@ function replaceElements(props, formatted) {
 
     // Elements replacement.
     if (elementsProp) {
-        // const components = _replaceElements(formatted, elementsProp);
-        return React.createElement("span", {}, ..._replaceElements(formatted, elementsProp));
+        return _replaceElements(formatted, elementsProp);
     }
     return formatted;
 }

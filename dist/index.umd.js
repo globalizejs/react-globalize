@@ -208,11 +208,7 @@ function generator(fn, localPropNames, options) {
         }, {
             key: "render",
             value: function render() {
-                return React.createElement(
-                    "span",
-                    this.domProps,
-                    this.value
-                );
+                return React.createElement.apply(React, ["span", this.domProps].concat(toConsumableArray(this.value)));
             }
         }]);
         return _class;
@@ -364,8 +360,7 @@ function replaceElements(props, formatted) {
 
     // Elements replacement.
     if (elementsProp) {
-        // const components = _replaceElements(formatted, elementsProp);
-        return React.createElement.apply(React, ["span", {}].concat(toConsumableArray(_replaceElements(formatted, elementsProp))));
+        return _replaceElements(formatted, elementsProp);
     }
     return formatted;
 }

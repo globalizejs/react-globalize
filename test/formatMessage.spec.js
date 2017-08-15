@@ -64,7 +64,7 @@ Globalize.loadMessages({
         it("properly replaces elements", () => {
             // eslint-disable-next-line jsx-a11y/anchor-has-content, react/self-closing-comp
             const wrapper = shallow(<FormatMessage path="elements/rglink" elements={{ reactGlobalizeLink: <a href="https://github.com/jquery-support/react-globalize"></a> }} />);
-            expect(wrapper.html()).to.equal("<span><span>For more information, see <a href=\"https://github.com/jquery-support/react-globalize\">React Globalize</a></span></span>");
+            expect(wrapper.html()).to.equal("<span>For more information, see <a href=\"https://github.com/jquery-support/react-globalize\">React Globalize</a></span>");
         });
 
         it("uses proper gender inflection", () => {

@@ -46,7 +46,7 @@ function generator(fn, localPropNames, options) {
         }
 
         render() {
-            return <span {...this.domProps}>{ this.value }</span>;
+            return React.createElement("span", this.domProps, ...this.value);
         }
     };
 }
