@@ -50,6 +50,10 @@ Globalize.loadMessages({
             const wrapper = shallow(<FormatMessage>Hi</FormatMessage>);
             expect(wrapper.text()).to.equal("Hi");
         });
+        it("outputs strings not as an array of characters", () => {
+            const wrapper = shallow(<FormatMessage>Hi</FormatMessage>);
+            expect(wrapper.children().getNodes().length).to.equal(1);
+        });
 
         it("resolves path and prints 'Hi'", () => {
             const wrapper = shallow(<FormatMessage path="salutations/hi" />);
@@ -65,6 +69,8 @@ Globalize.loadMessages({
             // eslint-disable-next-line jsx-a11y/anchor-has-content, react/self-closing-comp
             const wrapper = shallow(<FormatMessage path="elements/rglink" elements={{ reactGlobalizeLink: <a href="https://github.com/jquery-support/react-globalize"></a> }} />);
             expect(wrapper.html()).to.equal("<span>For more information, see <a href=\"https://github.com/jquery-support/react-globalize\">React Globalize</a></span>");
+            expect(wrapper.children().getNodes().length).to.equal(2);
+            expect(wrapper.children().get(1).type).to.equal("a");
         });
 
         it("uses proper gender inflection", () => {

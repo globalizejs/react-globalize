@@ -8,6 +8,11 @@ React = React && React.hasOwnProperty('default') ? React['default'] : React;
 Globalize = Globalize && Globalize.hasOwnProperty('default') ? Globalize['default'] : Globalize;
 PropTypes = PropTypes && PropTypes.hasOwnProperty('default') ? PropTypes['default'] : PropTypes;
 
+function alwaysArray(stringOrArray) {
+    // eslint-disable-next-line no-nested-ternary
+    return Array.isArray(stringOrArray) ? stringOrArray : stringOrArray ? [stringOrArray] : [];
+}
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
@@ -203,7 +208,7 @@ function generator(fn, localPropNames, options) {
 
                 beforeFormat.call(this, props);
                 var formattedValue = (_globalize = this.globalize)[fn].apply(_globalize, toConsumableArray(this.globalizePropValues));
-                this.value = afterFormat.call(this, formattedValue);
+                this.value = alwaysArray(afterFormat.call(this, formattedValue));
             }
         }, {
             key: "render",
