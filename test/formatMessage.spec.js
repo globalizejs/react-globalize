@@ -12,6 +12,9 @@ Globalize.loadMessages({
         elements: {
             rglink: "For more information, see [reactGlobalizeLink]React Globalize[/reactGlobalizeLink]"
         },
+        htmlElements: {
+            htmlTags: "You can [strong]emphasize[/strong] words, [br/] and isolate the [strong]important[/strong] ones."
+        },
         party: [
             "{hostGender, select,",
             "  female {{host} invites {guest} to her party}",
@@ -71,6 +74,11 @@ Globalize.loadMessages({
             expect(wrapper.html()).to.equal("<span>For more information, see <a href=\"https://github.com/jquery-support/react-globalize\">React Globalize</a></span>");
             expect(wrapper.children().getElements().length).to.equal(2);
             expect(wrapper.children().get(1).type).to.equal("a");
+        });
+
+        it("properly replaces multiple elements", () => {
+            const wrapper = shallow(<FormatMessage path="htmlElements/htmlTags" elements={{br: <br />, strong: <strong></strong>}} />);
+            expect(wrapper.html()).to.equal("<span>You can <strong>emphasize</strong> words, <br/> and isolate the <strong>important</strong> ones.</span>");
         });
 
         it("uses proper gender inflection", () => {
