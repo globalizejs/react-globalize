@@ -73,9 +73,9 @@ function messageSetup(globalize, props, globalizePropValues) {
 function replaceElements(props, formatted) {
     var elements = props.elements;
 
-    function _replaceElements(string, elements) {
-        if (typeof string !== "string") {
-            throw new Error("Missing or invalid string `" + string + "` (" + typeof string + ")");
+    function _replaceElements(format, elements) {
+        if (typeof format !== "string") {
+            throw new Error(`Missing or invalid string \`${format}\` (${typeof format})`);
         }
         if (typeof elements !== "object") {
             throw new Error("Missing or invalid elements `" + elements + "` (" + typeof elements + ")");
@@ -96,46 +96,44 @@ function replaceElements(props, formatted) {
             [].splice.apply(sourceArray, [start, deleteCount].concat(itemsArray));
         }
 
-        return Object.keys(elements).reduce(function(ret, key) {
-            var element = elements[key];
+        return Object.keys(elements).reduce((nodes, key) => {
+            const element = elements[key];
 
-            ret.forEach(function(string, i) {
-                var aux, contents, regexp, regexp2;
+            // Insert array into the correct ret position.
+            function replaceNode(array, i) {
+                splice(nodes, i, 1, array);
+            }
 
-                // Insert array into the correct ret position.
-                function replaceRetItem(array) {
-                    splice(ret, i, 1, array);
-                }
-
-                if (typeof string !== "string") {
-                    return; // continue;
+            for (let i = 0; i < nodes.length; i += 1) {
+                const node = nodes[i];
+                if (typeof node !== "string") {
+                    continue; // eslint-disable-line no-continue
                 }
 
                 // Empty tags, e.g., `[foo/]`.
-                aux = string.split("[" + key + "/]");
+                let aux = node.split(`[${key}/]`);
                 if (aux.length > 1) {
                     aux = spreadElementsInBetweenItems(aux, element);
-                    replaceRetItem(aux);
-                    return; // continue;
+                    replaceNode(aux, i);
+                    continue; // eslint-disable-line no-continue
                 }
 
                 // Start-end tags, e.g., `[foo]content[/foo]`.
-                regexp = new RegExp("\\[" + key + "\\][\\s\\S]*?\\[\\/" + key + "\\]", "g");
-                regexp2 = new RegExp("\\[" + key + "\\]([\\s\\S]*?)\\[\\/" + key + "\\]");
-                aux = string.split(regexp);
+                const regexp = new RegExp(`\\[${key}\\][\\s\\S]*?\\[\\/${key}\\]`, "g");
+                const regexp2 = new RegExp(`\\[${key}\\]([\\s\\S]*?)\\[\\/${key}\\]`);
+                aux = node.split(regexp);
                 if (aux.length > 1) {
-                    contents = string.match(regexp).map(function(content) {
-                        return content.replace(regexp2, "$1");
-                    });
-                    aux = spreadElementsInBetweenItems(aux, function(i) {
-                        return React.cloneElement(element, {}, contents[i]);
-                    });
-                    replaceRetItem(aux);
+                    const contents = node.match(regexp).map(content => content.replace(regexp2, "$1"));
+                    aux = spreadElementsInBetweenItems(
+                        aux,
+                        idx => React.cloneElement(element, {}, contents[idx]),
+                    );
+                    replaceNode(aux, i);
                 }
-            });
+            }
 
-            return ret;
-        }, [string]);
+            return nodes;
+        }, [format]);
     }
 
 
