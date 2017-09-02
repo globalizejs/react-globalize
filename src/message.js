@@ -92,55 +92,37 @@ function replaceElements(props, formatted) {
         }
 
         // Given [x, y, z], it returns [x, element, y, element, z].
-        function spreadElementsInBetweenItems(array, element) {
-            const getElement = typeof element === "function" ? element : () => element;
-            return array.slice(1).reduce((ret, item, i) => {
-                ret.push(getElement(i), item);
-                return ret;
-            }, [array[0]]);
-        }
-
-        function splice(sourceArray, start, deleteCount, itemsArray) {
-            [].splice.apply(sourceArray, [start, deleteCount].concat(itemsArray));
+        function spreadElementsInBetweenItems(array, getElement) {
+            return array.slice(1).reduce(
+                (nodes, item, i) => [...nodes, getElement(i), item],
+                [array[0]]);
         }
 
         return Object.keys(elements).reduce((nodes, key) => {
             const element = elements[key];
+            // flatMap...
+            return Array.prototype.concat.apply([], nodes.map((node) => {
+                if (typeof node === "string") {
+                    // Empty tags, e.g., `[foo/]`.
+                    let aux = node.split(`[${key}/]`);
+                    if (aux.length > 1) {
+                        return spreadElementsInBetweenItems(aux, () => element);
+                    }
 
-            // Insert array into the correct ret position.
-            function replaceNode(array, i) {
-                splice(nodes, i, 1, array);
-            }
-
-            for (let i = 0; i < nodes.length; i += 1) {
-                const node = nodes[i];
-                if (typeof node !== "string") {
-                    continue; // eslint-disable-line no-continue
+                    // Start-end tags, e.g., `[foo]content[/foo]`.
+                    const regexp = new RegExp(`\\[${key}\\][\\s\\S]*?\\[\\/${key}\\]`, "g");
+                    const regexp2 = new RegExp(`\\[${key}\\]([\\s\\S]*?)\\[\\/${key}\\]`);
+                    aux = node.split(regexp);
+                    if (aux.length > 1) {
+                        const contents = node.match(regexp).map(content => content.replace(regexp2, "$1"));
+                        return spreadElementsInBetweenItems(
+                            aux,
+                            idx => React.cloneElement(element, {}, contents[idx]),
+                        );
+                    }
                 }
-
-                // Empty tags, e.g., `[foo/]`.
-                let aux = node.split(`[${key}/]`);
-                if (aux.length > 1) {
-                    aux = spreadElementsInBetweenItems(aux, element);
-                    replaceNode(aux, i);
-                    continue; // eslint-disable-line no-continue
-                }
-
-                // Start-end tags, e.g., `[foo]content[/foo]`.
-                const regexp = new RegExp(`\\[${key}\\][\\s\\S]*?\\[\\/${key}\\]`, "g");
-                const regexp2 = new RegExp(`\\[${key}\\]([\\s\\S]*?)\\[\\/${key}\\]`);
-                aux = node.split(regexp);
-                if (aux.length > 1) {
-                    const contents = node.match(regexp).map(content => content.replace(regexp2, "$1"));
-                    aux = spreadElementsInBetweenItems(
-                        aux,
-                        idx => React.cloneElement(element, {}, contents[idx]),
-                    );
-                    replaceNode(aux, i);
-                }
-            }
-
-            return nodes;
+                return node;
+            }));
         }, [format]);
     }
 
