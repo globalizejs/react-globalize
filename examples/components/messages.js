@@ -54,6 +54,16 @@ class LocalizedMessages extends React.Component {
                 >
                     For more information, see [reactGlobalizeLink]React Globalize[/reactGlobalizeLink]
                 </FormatMessage>
+                <br />
+                <FormatMessage
+                    locale={this.state.locale}
+                    elements={
+                        // eslint-disable-next-line react/self-closing-comp
+                        { strong: <strong></strong> }
+                    }
+                >
+                    Use Element Replacement to localize messages with [strong]markup[/strong] too.
+                </FormatMessage>
                 <h3>Gender Inflection</h3>
                 { JSON.stringify({ guest: "Mozart", guestGender: "male", host: "Beethoven", hostGender: "male" }) } - <FormatMessage locale={this.state.locale} path="party" variables={{ guest: "Mozart", guestGender: "male", host: "Beethoven", hostGender: "male" }} />
                 <br />
