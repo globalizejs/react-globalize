@@ -100,7 +100,10 @@ function replaceElements(props, formatted) {
 
         return Object.keys(elements).reduce((nodes, key) => {
             const element = elements[key];
-            // flatMap...
+            // forEach was iterating on an expanding array, missing
+            // as much node last entries as were inserted before
+            // 
+            // quasi flatMap (concat.apply map) ensures all nodes are processed
             return Array.prototype.concat.apply([], nodes.map((node) => {
                 if (typeof node === "string") {
                     // Empty tags, e.g., `[foo/]`.
