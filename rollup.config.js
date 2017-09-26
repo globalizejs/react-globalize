@@ -5,7 +5,7 @@ import pkg from "./package.json";
 export default [
     // browser-friendly UMD build
     {
-        entry: "src/index.js",
+        input: "src/index.js",
         external: [
             "react",
             "globalize",
@@ -16,10 +16,10 @@ export default [
             globalize: "Globalize",
             "prop-types": "PropTypes",
         },
-        targets: [
-            { dest: pkg.browser, format: "umd", moduleName: "react-globalize" },
-            { dest: pkg.main, format: "cjs" },
-            { dest: pkg.module, format: "es" },
+        output: [
+            { file: pkg.browser, format: "umd", name: "react-globalize" },
+            { file: pkg.main, format: "cjs" },
+            { file: pkg.module, format: "es" },
         ],
         plugins: [
             resolve(),
