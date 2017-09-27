@@ -89,20 +89,21 @@ var messages = {
 };
 
 Globalize.load(
-    require( 'cldr-data/main/en/ca-gregorian' ),
-    require( 'cldr-data/main/en/timeZoneNames' ),
-    require( 'cldr-data/main/en/numbers' ),
-    require( 'cldr-data/main/en/currencies' ),
-    require( 'cldr-data/main/pt/ca-gregorian' ),
-    require( 'cldr-data/main/pt/timeZoneNames' ),
-    require( 'cldr-data/main/pt/numbers' ),
-    require( 'cldr-data/main/pt/currencies' ),
-    require( 'cldr-data/supplemental/currencyData' ),
-    require( 'cldr-data/supplemental/plurals' ),
-    require( 'cldr-data/supplemental/likelySubtags' ),
-    require( 'cldr-data/supplemental/timeData' ),
-    require( 'cldr-data/supplemental/weekData' )
+    require("cldr-data/main/en/ca-gregorian"),
+    require("cldr-data/main/en/timeZoneNames"),
+    require("cldr-data/main/en/numbers"),
+    require("cldr-data/main/en/currencies"),
+    require("cldr-data/main/pt/ca-gregorian"),
+    require("cldr-data/main/pt/timeZoneNames"),
+    require("cldr-data/main/pt/numbers"),
+    require("cldr-data/main/pt/currencies"),
+    require("cldr-data/supplemental/currencyData"),
+    require("cldr-data/supplemental/plurals"),
+    require("cldr-data/supplemental/likelySubtags"),
+    require("cldr-data/supplemental/timeData"),
+    require("cldr-data/supplemental/weekData"),
 );
+
 Globalize.loadMessages(messages);
 
 React.render(

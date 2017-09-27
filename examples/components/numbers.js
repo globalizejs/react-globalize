@@ -1,18 +1,16 @@
-var FormatNumber = require('../react-globalize').FormatNumber;
-var React = require('react');
+import React from "react";
+import { FormatNumber } from "../react-globalize";
 
-module.exports = React.createClass({
-    getInitialState: function() {
-        return {
-            locale: "en"
-        };
-    },
-    handleChange: function( event ) {
+class LocalizedNumbers extends React.Component {
+    state = {
+        locale: "en",
+    };
+    handleChange = (event) => {
         this.setState({
-            locale: event.target.value
+            locale: event.target.value,
         });
-    },
-    render: function() {
+    }
+    render() {
         return (
             <div>
                 <div>
@@ -38,4 +36,5 @@ module.exports = React.createClass({
             </div>
         );
     }
-});
+}
+export default LocalizedNumbers;

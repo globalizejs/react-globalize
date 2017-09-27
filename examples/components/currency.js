@@ -1,18 +1,16 @@
-var FormatCurrency = require('../react-globalize').FormatCurrency;
-var React = require('react');
+import React from "react";
+import { FormatCurrency } from "../react-globalize";
 
-module.exports = React.createClass({
-    getInitialState: function() {
-        return {
-            locale: "en"
-        };
-    },
-    handleChange: function( event ) {
+class LocalizedCurrencies extends React.PureComponent {
+    state = {
+        locale: "en",
+    };
+    handleChange = (event) => {
         this.setState({
-            locale: event.target.value
+            locale: event.target.value,
         });
-    },
-    render: function() {
+    }
+    render() {
         return (
             <div>
                 <div>
@@ -48,4 +46,5 @@ module.exports = React.createClass({
             </div>
         );
     }
-});
+}
+export default LocalizedCurrencies;
