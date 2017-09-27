@@ -2,7 +2,9 @@
   "name": "react-globalize",
   "version": "0.4.1",
   "description": "Bringing the i18n functionality of Globalize, backed by CLDR, to React",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
   "files": [
     "dist/",
     "examples/",
@@ -11,7 +13,12 @@
     "src/"
   ],
   "scripts": {
-    "test": "grunt test"
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "mocha test",
+    "test:debug": "node ./node_modules/.bin/mocha --inspect-brk test",
+    "lint": "eslint rollup.config.js src test",
+    "pretest": "npm run lint"
   },
   "keywords": [
     "react",
@@ -31,30 +38,37 @@
   "repository": "jquery-support/react-globalize",
   "bugs": "https://github.com/jquery-support/react-globalize/issues",
   "peerDependencies": {
-    "globalize": ">= 1.0.0",
-    "react": "^0.13 || ^0.14 || ^15.0.0"
+    "globalize": ">= 1.3.0",
+    "react": "^16.0.0-rc.2",
+    "prop-types": "^15.6.0"
   },
   "devDependencies": {
-    "babel-eslint": "^4.1.6",
-    "babel-preset-es2015": "^6.6.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-register": "^6.7.2",
-    "chai": "^3.5.0",
-    "cldr-data": ">=25",
-    "cldrjs": "^0.4.3",
-    "create-react-class": "^15.5.2",
-    "enzyme": "2.2.0",
-    "eslint": "^1.10.3",
-    "eslint-config-defaults": "^7.1.1",
-    "eslint-plugin-react": "^3.11.2",
-    "globalize": "1.1.x",
-    "grunt": "^0.4.5",
-    "grunt-eslint": "^18.0.0",
-    "grunt-esperanto": "^0.4.0",
-    "grunt-mocha-test": "^0.12.7",
-    "mocha": "^2.4.5",
-    "react": "15.0.1",
-    "react-addons-test-utils": "15.0.1",
-    "react-dom": "15.0.1"
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "cldr-data": ">=31",
+    "cldrjs": "^0.5.0",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-16": "^1.0.0",
+    "eslint": "^4.7.2",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-class-property": "^1.0.6",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "globalize": "^1.3.0",
+    "mocha": "^3.5.3",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-test-renderer": "^16.0.0",
+    "rollup": "^0.50.0",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-watch": "^4.3.1"
   }
 }

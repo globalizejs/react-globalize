@@ -5,9 +5,9 @@ import FormatNumber from "./number";
 import FormatRelativeTime from "./relative-time";
 
 export default {
-    FormatCurrency: FormatCurrency,
-    FormatDate: FormatDate,
-    FormatMessage: FormatMessage,
-    FormatNumber: FormatNumber,
-    FormatRelativeTime: FormatRelativeTime
+    FormatCurrency,
+    FormatDate,
+    FormatMessage,
+    FormatNumber,
+    FormatRelativeTime,
 };

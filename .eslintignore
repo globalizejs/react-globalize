@@ -1,0 +1,6 @@
+# /node_modules/* and /bower_components/* ignored by default
+
+# Ignore built files
+dist/*
+examples/app.js
+examples/react-globalize/index.js

@@ -1,5 +1,5 @@
-/*global expect React shallow Globalize*/
-import FormatCurrency from "../dist/currency";
+/* global expect React shallow Globalize */
+import { FormatCurrency } from "../dist/index.umd";
 
 describe("formatCurrency Component", () => {
     it("renders as a <span>", () => {
