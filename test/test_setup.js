@@ -1,7 +1,10 @@
+import Adapter from "enzyme-adapter-react-16";
 import { expect } from "chai";
 import React from "react";
-import { shallow } from "enzyme";
 import Globalize from "globalize";
+import Enzyme, { shallow } from "enzyme";
+
+Enzyme.configure({ adapter: new Adapter() });
 
 global.expect = expect;
 global.React = React;

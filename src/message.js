@@ -141,7 +141,7 @@ function replaceElements(props, formatted) {
 
     // Elements replacement.
     if (elements) {
-        formatted = React.DOM.span.apply(React.DOM.span, [{}].concat(_replaceElements(formatted, elements)));
+        formatted = _replaceElements(formatted, elements);
     }
 
     return formatted;
