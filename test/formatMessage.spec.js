@@ -1,5 +1,5 @@
 /*global expect React shallow Globalize*/
-import FormatMessage from "../dist/message";
+import FormatMessage from "../src/message";
 
 Globalize.loadMessages({
     en: {

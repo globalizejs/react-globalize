@@ -3,6 +3,8 @@
   "version": "0.4.1",
   "description": "Bringing the i18n functionality of Globalize, backed by CLDR, to React",
   "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
   "files": [
     "dist/",
     "examples/",
@@ -13,7 +15,8 @@
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint rollup.config.js src test",
-    "test": "mocha test"
+    "test": "mocha test",
+    "prepublish": "build"
   },
   "keywords": [
     "react",
@@ -37,11 +40,11 @@
     "react": "^0.13 || ^0.14 || ^15.0.0"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.7.2",
     "chai": "^4.1.2",

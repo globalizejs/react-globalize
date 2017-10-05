@@ -1,6 +1,6 @@
 /*global expect React shallow Globalize*/
-import FormatCurrency from "../dist/currency";
-import FormatMessage from "../dist/message";
+import FormatCurrency from "../src/currency";
+import FormatMessage from "../src/message";
 
 describe("Any Component", () => {
     it("doesn't forward ReactGlobalize specific props to underlying DOM component", () => {

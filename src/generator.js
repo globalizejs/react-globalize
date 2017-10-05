@@ -1,3 +1,4 @@
+import reactCreateClass from "./react-create-class";
 import React from "react";
 import Globalize from "globalize";
 
@@ -22,18 +23,15 @@ function generator(fn, localPropNames, options) {
     };
     var globalizePropNames = commonPropNames.concat(localPropNames);
 
-    return class extends React.Component {
-        //static displayName = Fn;
-
-        componentWillMount() {
+    return reactCreateClass({
+        displayName: Fn,
+        componentWillMount: function() {
             this.setup(this.props);
-        }
-
-        componentWillReceiveProps(nextProps) {
+        },
+        componentWillReceiveProps: function(nextProps) {
             this.setup(nextProps);
-        }
-
-        setup(props) {
+        },
+        setup: function(props) {
             this.globalize = props.locale ? Globalize(props.locale) : Globalize;
             this.domProps = Object.keys(props).filter(omit(globalizePropNames)).reduce(function(memo, propKey) {
                 memo[propKey] = props[propKey];
@@ -48,12 +46,11 @@ function generator(fn, localPropNames, options) {
             beforeFormat.call(this, props);
             var formattedValue = this.globalize[fn].apply(this.globalize, this.globalizePropValues);
             this.value = afterFormat.call(this, formattedValue);
-        }
-
-        render() {
+        },
+        render: function() {
             return React.DOM.span(this.domProps, this.value);
         }
-    };
+    });
 }
 
 export default generator;

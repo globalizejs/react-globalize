@@ -3,29 +3,30 @@ import resolve from "rollup-plugin-node-resolve";
 import pkg from "./package.json";
 
 export default [
-    // browser-friendly UMD build
     {
         input: "src/index.js",
         external: [
             "react",
             "globalize",
-            "prop-types",
+            "globalize/*"
         ],
         globals: {
             react: "React",
-            globalize: "Globalize",
-            "prop-types": "PropTypes",
+            globalize: "Globalize"
         },
         output: [
             { file: pkg.browser, format: "umd", name: "react-globalize" },
             { file: pkg.main, format: "cjs" },
-            { file: pkg.module, format: "es" },
+            { file: pkg.module, format: "es" }
         ],
         plugins: [
             resolve(),
             babel({
-                exclude: "node_modules/**",
-            }),
-        ],
-    },
+                babelrc: false,
+                presets: [ "react", [ "env", { modules: false } ] ],
+                plugins: [ "transform-class-properties", "transform-object-rest-spread" ],
+                exclude: "node_modules/**"
+            })
+        ]
+    }
 ];

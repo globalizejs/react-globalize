@@ -1,5 +1,5 @@
 /*global expect React shallow Globalize*/
-import FormatRelativeTime from "../dist/relative-time";
+import FormatRelativeTime from "../src/relative-time";
 
 describe("formatRelativeTime Component", () => {
     it("renders as a <span>", () => {
