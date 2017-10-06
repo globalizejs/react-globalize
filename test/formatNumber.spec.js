@@ -1,5 +1,5 @@
 /*global expect React shallow Globalize*/
-import FormatNumber from "../dist/number";
+import FormatNumber from "../src/number";
 
 describe("formatNumber Component", () => {
     it("renders as a <span>", () => {

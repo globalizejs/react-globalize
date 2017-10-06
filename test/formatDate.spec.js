@@ -1,5 +1,5 @@
 /*global expect React shallow Globalize*/
-import FormatDate from "../dist/date";
+import FormatDate from "../src/date";
 
 describe("formatDate Component", () => {
     it("renders as a <span>", () => {
