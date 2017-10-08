@@ -16,7 +16,7 @@
     "build": "rollup -c",
     "lint": "eslint rollup.config.js src test",
     "test": "mocha test",
-    "prepublish": "build"
+    "prepublish": "npm run build"
   },
   "keywords": [
     "react",
