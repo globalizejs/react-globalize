@@ -35,8 +35,8 @@
   "license": "MIT",
   "repository": "jquery-support/react-globalize",
   "bugs": "https://github.com/jquery-support/react-globalize/issues",
-  "peerDependencies": {
-    "globalize": ">= 1.0.0",
+  "dependencies": {
+    "globalize": "^1.0.0",
     "react": "^16.0.0"
   },
   "devDependencies": {
