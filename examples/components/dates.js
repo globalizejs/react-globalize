@@ -27,10 +27,10 @@ class LocalizedDates extends React.Component {
                 <br/>
                 time: "medium" - <FormatDate locale={this.state.locale} pattern={{ time: "medium" }}>{new Date()}</FormatDate>
                 <br/>
-                datetime: "medium" - <FormatDate locale={this.state.locale} pattern={{ datetime: 'medium' }}>{new Date()}</FormatDate>
+                datetime: "medium" - <FormatDate locale={this.state.locale} pattern={{ datetime: "medium" }}>{new Date()}</FormatDate>
                 <br/>
                 datetime: "medium" with CSS class -
-                <FormatDate className='secondClass' locale={this.state.locale} pattern={{ datetime: 'medium' }}>{new Date()}</FormatDate>
+                <FormatDate className='secondClass' locale={this.state.locale} pattern={{ datetime: "medium" }}>{new Date()}</FormatDate>
             </div>
         );
     }

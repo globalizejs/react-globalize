@@ -5,11 +5,11 @@ import { FormatMessage } from "../react-globalize";
 
 class LocalizedMessages extends React.Component {
     state = {
-        locale: "en",
+        locale: "en"
     };
     handleChange = (event) => {
         this.setState({
-            locale: event.target.value,
+            locale: event.target.value
         });
     }
     render() {
@@ -33,22 +33,21 @@ class LocalizedMessages extends React.Component {
                 <br/>
                 <FormatMessage locale={this.state.locale}>Hi/Bye</FormatMessage>
                 <h3>Default messages with style</h3>
-                <FormatMessage style={{color: 'red'}} locale={this.state.locale}>
+                <FormatMessage style={{color: "red"}} locale={this.state.locale}>
                   Hi
                 </FormatMessage>
                 <br/>
-                <FormatMessage style={{color: 'blue'}} locale={this.state.locale}>
+                <FormatMessage style={{color: "blue"}} locale={this.state.locale}>
                   Bye
                 </FormatMessage>
                 <h3>Variable Replacement</h3>
-                [&quot;Wolfgang&quot;, &quot;Amadeus&quot;, &quot;Mozart&quot;] - <FormatMessage locale={this.state.locale} path="variables/hello" variables={["Wolfgang", "Amadeus", "Mozart"]} />
-                <br />
-                { JSON.stringify({ first: "Wolfgang", middle: "Amadeus", last: "Mozart" }) } - <FormatMessage locale={this.state.locale} path="variables/hey" variables={{ first: "Wolfgang", middle: "Amadeus", last: "Mozart" }} />
+                ["Wolfgang", "Amadeus", "Mozart"] - <FormatMessage locale={this.state.locale} path="variables/hello" variables={["Wolfgang", "Amadeus", "Mozart"]} />
+                <br/>
+                {JSON.stringify({first:"Wolfgang", middle:"Amadeus", last:"Mozart"})} - <FormatMessage locale={this.state.locale} path="variables/hey" variables={{first:"Wolfgang", middle:"Amadeus", last:"Mozart"}} />
                 <h3>Element Replacement</h3>
                 <FormatMessage
                     locale={this.state.locale}
                     elements={
-                        // eslint-disable-next-line jsx-a11y/anchor-has-content, react/self-closing-comp
                         { reactGlobalizeLink: <a href="https://github.com/jquery-support/react-globalize"></a> }
                     }
                 >
@@ -58,7 +57,6 @@ class LocalizedMessages extends React.Component {
                 <FormatMessage
                     locale={this.state.locale}
                     elements={
-                        // eslint-disable-next-line react/self-closing-comp
                         { strong: <strong></strong> }
                     }
                 >

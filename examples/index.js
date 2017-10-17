@@ -1,9 +1,9 @@
-var React = require('react');
-var Globalize = require('globalize');
-var LocalizedCurrencies = require('./components/currency');
-var LocalizedDates = require('./components/dates');
-var LocalizedMessages = require('./components/messages');
-var LocalizedNumbers = require('./components/numbers');
+var React = require("react");
+var Globalize = require("globalize");
+var LocalizedCurrencies = require("./components/currency");
+var LocalizedDates = require("./components/dates");
+var LocalizedMessages = require("./components/messages");
+var LocalizedNumbers = require("./components/numbers");
 
 var messages = {
     en: {
@@ -107,14 +107,14 @@ Globalize.load(
 Globalize.loadMessages(messages);
 
 React.render(
-    <LocalizedCurrencies />, document.getElementById('currency')
+    <LocalizedCurrencies />, document.getElementById("currency")
 );
 React.render(
-    <LocalizedDates />, document.getElementById('dates')
+    <LocalizedDates />, document.getElementById("dates")
 );
 React.render(
-    <LocalizedMessages />, document.getElementById('messages')
+    <LocalizedMessages />, document.getElementById("messages")
 );
 React.render(
-    <LocalizedNumbers />, document.getElementById('numbers')
+    <LocalizedNumbers />, document.getElementById("numbers")
 );
