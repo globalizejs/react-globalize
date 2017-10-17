@@ -2,6 +2,13 @@
 
 [React](http://facebook.github.io/react/) components that provide internationalization features via [Globalize](https://github.com/jquery/globalize). With a little initialization, you get instantly internationalized values in your application.
 
+## React versions
+
+| react-globalize | react |
+| --- | --- |
+| 0.x | ^0.14.0, ^0.14.0, ^15.0.0 |
+| 1.x | ^16.0.0 |
+
 ## Install
 
 1. `npm install react-globalize --save`
