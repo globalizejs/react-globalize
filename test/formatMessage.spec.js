@@ -56,7 +56,8 @@ Globalize.loadMessages({
 
         it("outputs strings not as an array of characters", () => {
             const wrapper = shallow(<FormatMessage>Hi</FormatMessage>);
-            expect(wrapper.children().getElements().length).to.equal(1);
+            expect(wrapper.html()).to.equal("<span>Hi</span>");
+            expect(wrapper.find("span").children()).to.have.length(1);
         });
 
         it("resolves path and prints 'Hi'", () => {
@@ -71,14 +72,14 @@ Globalize.loadMessages({
 
         it("properly replaces elements", () => {
             const wrapper = shallow(<FormatMessage path="elements/rglink" elements={{reactGlobalizeLink: <a href="https://github.com/jquery-support/react-globalize"></a>}} />);
-            expect(wrapper.html()).to.equal("<span>For more information, see <a href=\"https://github.com/jquery-support/react-globalize\">React Globalize</a></span>");
-            expect(wrapper.children().getElements().length).to.equal(2);
-            expect(wrapper.children().get(1).type).to.equal("a");
+            expect(wrapper.html()).to.equal("<span><span>For more information, see <a href=\"https://github.com/jquery-support/react-globalize\">React Globalize</a></span></span>");
+            expect(wrapper.find("a").parent().children()).to.have.length(3);
+            expect(wrapper.find("a").parent().children().get(1).type).to.equal("a");
         });
 
         it("properly replaces multiple elements", () => {
             const wrapper = shallow(<FormatMessage path="htmlElements/htmlTags" elements={{br: <br />, strong: <strong></strong>}} />);
-            expect(wrapper.html()).to.equal("<span>You can <strong>emphasize</strong> words, <br/> and isolate the <strong>important</strong> ones.</span>");
+            expect(wrapper.html()).to.equal("<span><span>You can <strong>emphasize</strong> words, <br/> and isolate the <strong>important</strong> ones.</span></span>");
         });
 
         it("uses proper gender inflection", () => {
