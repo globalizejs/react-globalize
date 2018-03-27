@@ -186,7 +186,7 @@ export default generator("formatMessage", ["path", "variables"], {
     beforeFormat: function(props) {
         messageSetup(this.globalize, props, this.globalizePropValues);
     },
-    afterFormat: function(formattedValue) {
-        return replaceElements(this.props, formattedValue);
+    afterFormat: function(props, formattedValue) {
+        return replaceElements(props, formattedValue);
     }
 });

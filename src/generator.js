@@ -18,7 +18,7 @@ function generator(fn, localPropNames, options) {
     options = options || {};
     var Fn = capitalizeFirstLetter(fn);
     var beforeFormat = options.beforeFormat || function() {};
-    var afterFormat = options.afterFormat || function(formattedValue) {
+    var afterFormat = options.afterFormat || function(props, formattedValue) {
         return formattedValue;
     };
     var globalizePropNames = commonPropNames.concat(localPropNames);
@@ -48,7 +48,7 @@ function generator(fn, localPropNames, options) {
 
             beforeFormat.call(this, props);
             var formattedValue = this.globalize[fn](...this.globalizePropValues);
-            this.value = alwaysArray(afterFormat.call(this, formattedValue));
+            this.value = alwaysArray(afterFormat.call(this, props, formattedValue));
         }
 
         render() {
