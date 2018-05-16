@@ -24,7 +24,7 @@ function generator(fn, localPropNames, options) {
     var globalizePropNames = commonPropNames.concat(localPropNames);
 
     return class extends React.Component {
-        static displayName = Fn;
+        static displayName = Fn; // eslint-disable-line no-undef
 
         componentWillMount() {
             this.setup(this.props);

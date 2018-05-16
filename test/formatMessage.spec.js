@@ -94,11 +94,11 @@ Globalize.loadMessages({
         it("updates when children change", () => {
             const wrapper = shallow(<FormatMessage elements={{testEl: <a href="https://github.com/jquery-support/react-globalize"></a>}}>[testEl]Hello[/testEl]</FormatMessage>);
             wrapper.setProps({
-              children: "[testEl]Goodbye[/testEl]",
-              elements: {testEl: <a href="https://github.com/globalizejs"></a>}
+                children: "[testEl]Goodbye[/testEl]",
+                elements: {testEl: <a href="https://github.com/globalizejs"></a>}
             });
             expect(wrapper.text()).to.equal("Goodbye");
-            expect(wrapper.find('a').prop('href')).to.equal("https://github.com/globalizejs");
+            expect(wrapper.find("a").prop("href")).to.equal("https://github.com/globalizejs");
         });
     });
 });

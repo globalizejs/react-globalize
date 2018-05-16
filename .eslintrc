@@ -12,6 +12,9 @@
   "plugins": [
     "react"
   ],
+  "ecmaFeatures": {
+    "modules": true,
+  },
   "rules": {
     "indent": 2,
     "no-console": 1,
