@@ -261,9 +261,9 @@ Update package.json version, commit, and merge it into `master`.
 On master, run:
 
 ```
-VER=<version> # e.g., "0.4.0"
+VER=<version> # e.g., "1.0.1"
 git checkout --detach &&
-grunt &&
+npm run build &&
 git add -f dist/* &&
 git commit -a -m Build &&
 git tag -a -m v$VER v$VER
