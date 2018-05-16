@@ -15,13 +15,13 @@ describe("Any Component", () => {
 
     it("overrides default locale to format 150 as 150,00 €", () => {
         const wrapper = shallow(<FormatCurrency locale="de" currency="EUR">{150}</FormatCurrency>);
-        expect(wrapper.text()).to.equal("150,00 €");
+        expect(wrapper.text()).to.equal("150,00 €");
     });
 
     it("updates when props change", () => {
         const wrapper = shallow(<FormatCurrency locale="de" currency="EUR">{150}</FormatCurrency>);
-        expect(wrapper.text()).to.equal("150,00 €");
+        expect(wrapper.text()).to.equal("150,00 €");
         wrapper.setProps({ children: 200, currency: "USD" });
-        expect(wrapper.text()).to.equal("200,00 $");
+        expect(wrapper.text()).to.equal("200,00 $");
     });
 });
