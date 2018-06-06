@@ -15,6 +15,7 @@
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint rollup.config.js src test",
+    "lint:examples": "eslint --fix examples",
     "test": "mocha test",
     "prepublish": "npm run build"
   },

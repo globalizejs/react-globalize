@@ -1,18 +1,16 @@
-var FormatDate = require('../react-globalize').FormatDate;
-var React = require('react');
+import React from "react";
+import { FormatDate } from "../react-globalize";
 
-module.exports = React.createClass({
-    getInitialState: function() {
-        return {
-            locale: "en"
-        };
-    },
-    handleChange: function( event ) {
+class LocalizedDates extends React.Component {
+    state = {
+        locale: "en",
+    };
+    handleChange = (event) => {
         this.setState({
-            locale: event.target.value
+            locale: event.target.value,
         });
-    },
-    render: function() {
+    }
+    render() {
         return (
             <div>
                 <div>
@@ -29,11 +27,12 @@ module.exports = React.createClass({
                 <br/>
                 time: "medium" - <FormatDate locale={this.state.locale} pattern={{ time: "medium" }}>{new Date()}</FormatDate>
                 <br/>
-                datetime: "medium" - <FormatDate locale={this.state.locale} pattern={{ datetime: 'medium' }}>{new Date()}</FormatDate>
+                datetime: "medium" - <FormatDate locale={this.state.locale} pattern={{ datetime: "medium" }}>{new Date()}</FormatDate>
                 <br/>
                 datetime: "medium" with CSS class -
-                <FormatDate className='secondClass' locale={this.state.locale} pattern={{ datetime: 'medium' }}>{new Date()}</FormatDate>
+                <FormatDate className='secondClass' locale={this.state.locale} pattern={{ datetime: "medium" }}>{new Date()}</FormatDate>
             </div>
         );
     }
-});
+}
+export default LocalizedDates;
