@@ -35,7 +35,7 @@
 	// <span>US$ ١٥٠٫٠٠</span> when using the `ar` (Arabic) locale.
 	```
 
-3. Further info about each component is available below.
+3. Further information about each component is available below.
 
 ## Components
 
@@ -56,7 +56,7 @@ The numeric value to be formatted. Required.
 - **currency** - required
  - A 3-letter string currency code as defined by ISO 4217 (e.g., USD, EUR, CNY, etc).
 - **options**
- - An optional set of options to further format the value. See the [currencyFormatter][] docs in Globalize for more info on specific options
+ - An optional set of options to further format the value. See the [currencyFormatter][] docs in Globalize for more information on specific options
 - **locale** - optional
  - A string value representing the locale (as defined by BCP47) used to override the default locale (preferred) set by your application using `Globalize.locale(locale)` when formatting the amount.
 
@@ -95,7 +95,7 @@ The date object to be formatted. Required.
 #### Props
 
 - **options**
- - An optional set of options which defines how to format the date. See the [dateFormatter][] docs in Globalize for more info on supported patterns
+ - An optional set of options which defines how to format the date. See the [dateFormatter][] docs in Globalize for more information on supported patterns
 - **locale** - optional
  - A string value representing the locale (as defined by BCP47) used to override the default locale (preferred) set by your application using `Globalize.locale(locale)` when formatting the amount.
 
@@ -220,7 +220,7 @@ The number to be formatted. Required.
 #### Props
 
 - **options**
- - An optional set of options to further format the value. See the [numberFormatter][] docs in Globalize for more info on specific options
+ - An optional set of options to further format the value. See the [numberFormatter][] docs in Globalize for more information on specific options
 - **locale** - optional
  - A string value representing the locale (as defined by BCP47) used to override the default locale (preferred) set by your application using `Globalize.locale(locale)` when formatting the amount.
 
