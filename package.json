@@ -37,7 +37,7 @@
   "bugs": "https://github.com/jquery-support/react-globalize/issues",
   "dependencies": {
     "globalize": "^1.4.0",
-    "react": "^16.0.0"
+    "react": "^16.8.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -59,9 +59,9 @@
     "eslint-plugin-react": "^7.13.0",
     "globalize": "1.4.x",
     "mocha": "^6.1.4",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-test-renderer": "^16.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-test-renderer": "^16.8.6",
     "rollup": "^1.14.6",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-node-resolve": "^5.0.1",
