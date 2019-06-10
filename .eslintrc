@@ -12,8 +12,11 @@
   "plugins": [
     "react"
   ],
-  "ecmaFeatures": {
-    "modules": true,
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
   },
   "rules": {
     "indent": 2,

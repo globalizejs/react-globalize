@@ -12,9 +12,9 @@ global.shallow = shallow;
 global.Globalize = Globalize;
 
 Globalize.load(
-  require( "cldr-data" ).entireSupplemental(),
-  require( "cldr-data" ).entireMainFor("en"),
-  require( "cldr-data" ).entireMainFor("de")
+    require( "cldr-data" ).entireSupplemental(),
+    require( "cldr-data" ).entireMainFor("en"),
+    require( "cldr-data" ).entireMainFor("de")
 );
 
 Globalize.locale("en");
