@@ -57,7 +57,7 @@
     "eslint-config-defaults": "^7.1.1",
     "eslint-plugin-react": "^3.11.2",
     "globalize": "1.1.x",
-    "mocha": "^4.0.0",
+    "mocha": "^6.1.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-test-renderer": "^16.0.0",
