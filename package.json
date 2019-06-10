@@ -36,7 +36,7 @@
   "repository": "jquery-support/react-globalize",
   "bugs": "https://github.com/jquery-support/react-globalize/issues",
   "dependencies": {
-    "globalize": "^1.0.0",
+    "globalize": "^1.4.0",
     "react": "^16.0.0"
   },
   "devDependencies": {
@@ -56,7 +56,7 @@
     "eslint": "^5.16.0",
     "eslint-config-defaults": "^9.0.0",
     "eslint-plugin-react": "^7.13.0",
-    "globalize": "1.1.x",
+    "globalize": "1.4.x",
     "mocha": "^6.1.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
