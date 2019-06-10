@@ -48,7 +48,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.4.4",
     "babel-eslint": "^10.0.1",
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "cldr-data": ">=25",
     "cldrjs": "^0.5.1",
     "create-react-class": "^15.5.2",
