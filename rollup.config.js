@@ -23,8 +23,8 @@ export default [
             resolve(),
             babel({
                 babelrc: false,
-                presets: [ "react", [ "env", { modules: false } ] ],
-                plugins: [ "transform-class-properties", "transform-object-rest-spread" ],
+                presets: [ "@babel/preset-react", [ "@babel/preset-env", { modules: false } ] ],
+                plugins: [ "@babel/plugin-proposal-class-properties", "@babel/plugin-proposal-object-rest-spread" ],
                 exclude: "node_modules/**"
             })
         ]

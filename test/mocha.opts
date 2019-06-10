@@ -1,1 +1,1 @@
---colors --require babel-register --require test/test_setup
+--colors --require @babel/register --require test/test_setup
